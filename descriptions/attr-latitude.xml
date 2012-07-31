@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../tagLibrary_elementDesc.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?><div xmlns="http://www.tei-c.org/ns/1.0" type="attributeDocumentation"
+     xml:id="latitude">
+   <div type="summary">
+      <p xml:lang="eng">The geographic latitude of the place.</p>
+   </div>
+   <div type="description">
+      <p xml:lang="eng">The <att>latitude</att> may occur on <gi>place</gi>. The value of the
+							attribute is the geographic latitude of the place named. <att>latitude</att> should be used
+							in conjunction with <att>longitude</att> and <att>altitude</att>.</p>
+   </div>
+   <div type="datatype">
+      <p>NMTOKEN</p>
+   </div>
+</div>
