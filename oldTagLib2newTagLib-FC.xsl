@@ -62,10 +62,10 @@
     <xsl:template match="teiEg:egXML" mode="copy">
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
             <xsl:apply-templates mode="copy"/>
-        </egXML>
+        </egXML> 
     </xsl:template>
     <xsl:template match="tei:div">
-        <xsl:variable name="filename" select="concat('./descriptions-FC/', substring(@type, 1, 4), '-', @xml:id, '.xml')"/>
+        <xsl:variable name="filename" select="concat('./descriptions/', substring(@type, 1, 4), '-', @xml:id, '.xml')"/>
         <!--output xinclude reference for each element and attribute description -->
         <!-- FC add xmlns and parse attributes -->
         <xi:include xmlns:xi="http://www.w3.org/2001/XInclude">
