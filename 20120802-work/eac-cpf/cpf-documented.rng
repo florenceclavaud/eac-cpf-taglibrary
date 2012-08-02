@@ -1,0 +1,2244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	ENCODED ARCHIVAL CONTEXT-CORPORATE BODIES, PERSONS, AND FAMILIES (EAC-CPF) SCHEMA
+	
+	SCHEMA TYPE: Relax NG Schema XML
+	
+	VERSION: 2010
+	
+	DATE: 20100301
+	
+	EDITORS: Society of American Archivists Encoded Archival Context Working Group (EACWG)
+	
+	PUBLISHER: Society of American Archivists in collaboration with the Staatsbibliothek zu Berlin
+	
+	FUNDING: The Gladys Krieble Delmas Foundation
+	
+	PURPOSE: The EAC-CPF Schema is a communication standard for the description of corporate bodies,
+	persons, and families. It is based on the International Council of Archives' International Standard 
+	Archival Authority Record For Corporate Bodies, Persons and Families (ISAAR(CPF)). For additional
+	documentation on the use of the standard, see the EAC-CPF Tag Library
+	(http://eac.staatsbibliothek-berlin.de/eac-cpf-schema/tag-library.html).
+	
+	**********
+	RELEASE NOTES: The current release of the EAC-CPF is version 2010. 
+	********** 
+	
+	**********
+	Comments, questions, and suggestions should be sent to Katherine Wisser, Chair of
+	the EACWG (katherine.wisser@simmons.edu)
+	
+	with subject line: Schema Comment
+	**********
+	
+	EACWG MEMBERS:
+	
+	Anila Angjeli, Bibliothèque nationale de France (National Library of France)
+	Lina (Vasiliki) Bountouri, Laboratory on Digital Libraries and Electronic Publishing, 
+	  Ionian University
+	Karin Bredenberg, Riksarkivet (National Archives of Sweden)
+	Basil Dewhurst, National Library of Australia
+	Wendy Duff, University of Toronto, Faculty of Information
+	Hans-Joerg Lieder, Staatsbibliothek zu Berlin (Berlin State Library, Germany) 
+	Dennis Meissner, Minnesota Historical Society 
+	Victoria Peters, University of Strathclyde
+	Daniel Pitti, University of Virginia, Institute for Advanced Technology in the Humanities
+	Chris Prom, University of Illinois at Urbana-Champaign
+	Jennifer Schaffner, RLG Programs (OCLC Programs and Research) 
+	Bill Stockting, British Library (UK) 
+	Stefano Vitali, Soprintendenza archivistica per l'Emilia Romagna (Bologna) 
+	Kathy Wisser, Simmons College, Graduate School of Library and Information Science (Chair)
+	
+	SUPPORT:
+	
+	The work of the EACWG has been supported by the Society of American Archivists, Staatsbibliothek 
+	zu Berlin, Archivio di Stato di Bologna, Istituto per i Beni Artistici, Culturali e Naturali 
+	della Regione Emilia-Romagna, and by generous funding from the Delmas Foundation.
+	
+-->
+<grammar xmlns="http://relaxng.org/ns/structure/1.0" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns:xlink="http://www.w3.org/1999/xlink" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+   ns="urn:isbn:1-931666-33-4">
+   <!-- 
+ 
+	Import used in cpf.xsd: 
+	<xs:import namespace="http://www.w3.org/1999/xlink"
+	schemaLocation="http://www.loc.gov/standards/xlink/xlink.xsd"/>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2007/08/xml.xsd"/>
+	
+	<xs:attributeGroup ref="xlink:simpleLink"/>
+	
+	-->
+   <start>
+      <ref name="e.eac-cpf"/>
+   </start>
+   <define name="e.eac-cpf">
+      <element a:id="eac-cpf" name="eac-cpf">
+         <a:documentation xml:lang="eng">The &lt;eac-cpf&gt; is the root element and as such contains contains the entire EAC-CPF description of the person, corporate body, or family. It contains a required &lt;control&gt; followed by
+            either a &lt;cpfDescription&gt; or a &lt;multipleIdentities&gt; element.</a:documentation>
+         <a:documentation xml:lang="fre">&lt;eac-cpf&gt; est l’élément racine. Il contient l’intégralité de la description EAC-CPF de la personne, collectivité ou famille. Il est composé d’un élément obligatoire Contrôle &lt;control&gt;
+            suivi soit d’un élément Description de collectivité, de personne ou de famille &lt;cpfDescription&gt;, soit d’un élément Identités multiples &lt;multipleIdentities&gt;.</a:documentation>
+         <a:documentation xml:lang="eng">The outermost wrapper element that defines a particular instance of an archival authority record encoded with the EAC-CPF XML Schema. It contains a required &lt;control&gt; and either a
+            &lt;cpfDescription&gt; or a &lt;multipleIndentities&gt; element.</a:documentation>
+         <a:documentation xml:lang="fre">L’élément le plus englobant qui définit une instance particulière d’une notice d’autorité archivistique encodée au moyen du schéma XML EAC-CPF. Il contient un élément obligatoire Contrôle
+            &lt;control&gt; et soit un élément &lt;cpfDescription&gt;, soit un élément &lt;multipleIdentities&gt;.</a:documentation>
+         <optional>
+            <ref name="id"/>
+         </optional>
+         <optional>
+            <ref name="lang"/>
+         </optional>
+         <optional>
+            <ref name="base"/>
+         </optional>
+         <ref name="e.control"/>
+         <choice>
+            <ref name="e.cpfDescription"/>
+            <ref name="e.multipleIdentities"/>
+         </choice>
+      </element>
+   </define>
+   <define name="e.cpfDescription">
+      <element a:id="cpfDescription" name="cpfDescription">
+         <optional>
+            <ref name="id"/>
+         </optional>
+         <optional>
+            <ref name="lang"/>
+         </optional>
+         <optional>
+            <ref name="base"/>
+         </optional>
+         <ref name="e.identity"/>
+         <optional>
+            <ref name="e.description"/>
+         </optional>
+         <optional>
+            <ref name="e.relations"/>
+         </optional>
+         <optional>
+            <ref name="e.alternativeSet"/>
+         </optional>
+      </element>
+   </define>
+   <define name="e.multipleIdentities">
+      <element a:id="multipleIdentities" name="multipleIdentities">
+         <optional>
+            <ref name="id"/>
+         </optional>
+         <optional>
+            <ref name="lang"/>
+         </optional>
+         <optional>
+            <ref name="base"/>
+         </optional>
+         <ref name="e.cpfDescription"/>
+         <oneOrMore>
+            <ref name="e.cpfDescription"/>
+         </oneOrMore>
+      </element>
+   </define>
+   <div a:documentation="Control">
+      <define name="e.control">
+         <element a:id="control" name="control">
+            <a:documentation xml:lang="eng">The area of the instance that contains control information about its identity, creation, maintenance, status, and the rules and authorities used in the composition of the
+               description.</a:documentation>
+            <a:documentation xml:lang="fre">Zone contenant les informations relatives au contrôle de l’instance portant notamment sur son identité, sa création, sa gestion, son statut ainsi que les règles et les référentiels utilisés dans
+               la composition de la description.</a:documentation>
+            <a:documentation xml:lang="eng">This required wrapper element within &lt;eac-cpf&gt; contains the information necessary to control the instance. This includes information about its identity, creation, maintenance, and status as
+               well the languages, rules and authorities used in the composition of the description.It must contain a unique identifier for the instance within the &lt;recordId&gt; element and other associated identifiers may be given in
+               &lt;otherRecordId&gt;. There must be a description of the agency responsible for its creation and maintenance in &lt;maintenanceAgency&gt; as well as statements about its current drafting status in &lt;maintenanceStatus&gt;
+               and the creation, maintenance, and disposition of the instance in &lt;maintenanceHistory&gt;.Three elements are available to declare languages, rules and conventions used in the EAC-CPF instance. The
+               &lt;languageDeclaration&gt; element provides information on the language and script used in the description. The &lt;conventionDeclaration&gt; element provides information on the authorities or controlled vocabularies used in
+               the instance. &lt;localTypeDeclaration&gt; is used to declare the local conventions and controlled vocabularies used within the @localType in the instance.Other optional elements available in &lt;control&gt; include a
+               &lt;sources&gt; element to provide information about the documentary sources used in the composition of the description and a &lt;publicationStatus&gt; element to indicate the editorial status of the eac-cpf instance.Other
+               control elements considered necessary but not otherwise included may be given in &lt;localControl&gt; element.</a:documentation>
+            <a:documentation xml:lang="fre">Au sein de l’élément Contexte archivistique encodé – collectivités, personnes, familles &lt;eac-cpf&gt;, cet élément englobant obligatoire contient les informations nécessaires au contrôle de
+               l’instance. Il s’agit des informations sur son identité, sa création, sa gestion, son statut, ainsi que sur les langues, les règles et les référentiels utilisés dans la composition de la description.Il doit contenir un
+               identifiant unique pour l’instance dans l’élément Identifiant de la notice &lt;recordId&gt;. D’autres identifiants associés peuvent être fournis au moyen de l’élément Identifiant d’une autre notice &lt;otherRecordId&gt;. Une
+               description de l’agence responsable de la création et de la gestion de l’instance doit être donnée dans l’élément Organisme responsable &lt;maintenanceAgency&gt;. Des informations sur l’état de rédaction de la notice sont
+               données dans l’élément Statut de la notice &lt;maintenanceStatus&gt; et celles sur la création, la gestion de l’instance dans l’élément Historique des mises à jour &lt;maintenanceHistory&gt;.Trois éléments permettent de
+               déclarer les langues, les règles et les conventions utilisées dans l’instance EAC-CPF. L’élément Déclaration de langue &lt;languageDeclaration&gt; indique la langue et l’écriture utilisées dans la description. L’élément
+               Déclaration de règle ou de convention &lt;conventionDeclaration&gt; précise les référentiels ou les vocabulaires contrôlés utilisés dans l’instance. L’élément Déclaration de type local &lt;localTypeDeclaration&gt; est utilisé
+               pour déclarer les conventions et vocabulaires contrôlés de niveau local, signalés dans l’instance au moyen des valeurs de l’attribut @localType.Les autres éléments facultatifs disponibles dans l’élément &lt;control&gt; sont
+               l’élément Sources &lt;sources&gt;, permettant de fournir l’information sur les sources documentaires utilisées dans la composition de la description, ainsi que l’élément État de publication &lt;publicationStatus&gt; indiquant
+               le statut éditorial de l’instance EAC-CPF.D’autres éléments considérés comme nécessaires, mais qui ne sont pas compris dans le schéma, peuvent être donnés dans l’élément Contrôle local &lt;localControl&gt;.</a:documentation>
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <optional>
+               <ref name="base"/>
+            </optional>
+            <element a:id="recordId" name="recordId">
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <data type="NMTOKEN"/>
+            </element>
+            <zeroOrMore>
+               <element a:id="otherRecordId" name="otherRecordId">
+                  <optional>
+                     <ref name="id"/>
+                  </optional>
+                  <ref name="m.id"/>
+               </element>
+            </zeroOrMore>
+            <element a:id="maintenanceStatus" name="maintenanceStatus">
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <choice>
+                  <value>revised</value>
+                  <value>deleted</value>
+                  <value>new</value>
+                  <value>deletedSplit</value>
+                  <value>deletedReplaced</value>
+                  <value>cancelled</value>
+                  <value>derived</value>
+               </choice>
+            </element>
+            <optional>
+               <element a:id="publicationStatus" name="publicationStatus">
+                  <optional>
+                     <ref name="id"/>
+                  </optional>
+                  <choice>
+                     <value>inProcess</value>
+                     <value>approved</value>
+                  </choice>
+               </element>
+            </optional>
+            <ref name="e.maintenanceAgency"/>
+            <optional>
+               <ref name="e.languageDeclaration"/>
+            </optional>
+            <zeroOrMore>
+               <ref name="e.conventionDeclaration"/>
+            </zeroOrMore>
+            <zeroOrMore>
+               <ref name="e.localTypeDeclaration"/>
+            </zeroOrMore>
+            <zeroOrMore>
+               <ref name="e.localControl"/>
+            </zeroOrMore>
+            <ref name="e.maintenanceHistory"/>
+            <optional>
+               <ref name="e.sources"/>
+            </optional>
+         </element>
+      </define>
+      <define name="e.maintenanceAgency">
+         <element a:id="maintenanceAgency" name="maintenanceAgency">
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <element a:id="agencyCode" name="agencyCode">
+                  <optional>
+                     <ref name="id"/>
+                  </optional>
+                  <ref name="m.data.standardRepository"/>
+               </element>
+            </optional>
+            <zeroOrMore>
+               <element a:id="otherAgencyCode" name="otherAgencyCode">
+                  <optional>
+                     <ref name="id"/>
+                  </optional>
+                  <ref name="a.localType"/>
+                  <data type="NMTOKEN"/>
+               </element>
+            </zeroOrMore>
+            <element a:id="agencyName" name="agencyName">
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <optional>
+                  <ref name="lang"/>
+               </optional>
+               <text/>
+            </element>
+            <optional>
+               <ref name="e.descriptiveNote"/>
+            </optional>
+         </element>
+      </define>
+      <define name="e.maintenanceHistory">
+         <element a:id="maintenanceHistory" name="maintenanceHistory">
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <oneOrMore>
+               <element a:id="maintenanceEvent" name="maintenanceEvent">
+                  <optional>
+                     <ref name="id"/>
+                  </optional>
+                  <optional>
+                     <ref name="lang"/>
+                  </optional>
+                  <element a:id="eventType" name="eventType">
+                     <optional>
+                        <ref name="id"/>
+                     </optional>
+                     <choice>
+                        <value>created</value>
+                        <value>revised</value>
+                        <value>deleted</value>
+                        <value>cancelled</value>
+                        <value>derived</value>
+                        <value>updated</value>
+                     </choice>
+                  </element>
+                  <element a:id="eventDateTime" name="eventDateTime">
+                     <optional>
+                        <ref name="id"/>
+                     </optional>
+                     <optional>
+                        <ref name="lang"/>
+                     </optional>
+                     <optional>
+                        <attribute a:id="standardDateTime" name="standardDateTime">
+                           <ref name="m.data.standardDateTime"/>
+                        </attribute>
+                     </optional>
+                     <text/>
+                  </element>
+                  <element a:id="agentType" name="agentType">
+                     <optional>
+                        <ref name="id"/>
+                     </optional>
+                     <choice>
+                        <value>human</value>
+                        <value>machine</value>
+                     </choice>
+                  </element>
+                  <element a:id="agent" name="agent">
+                     <a:documentation xml:lang="eng">The agent (human or machine) responsible for an event in the maintenance of the EAC instance.</a:documentation>
+                     <a:documentation xml:lang="fre">L’agent (homme ou machine) responsable d’un évènement dans la gestion de l’instance EAC-CPF.</a:documentation>
+                     <a:documentation xml:lang="eng">For each maintenance event described in a &lt;maintenanceEvent&gt; element, the name of the agent responsible for the maintenance event must be given. This might be a person or
+                        institution in which case the &lt;agentType&gt; should be set as "human," or the name of a system, in which case set the &lt;agentType&gt; to "machine."</a:documentation>
+                     <a:documentation xml:lang="fre">Pour chaque intervention décrite dans l’élément Intervention &lt;maintenanceEvent&gt;, le nom de l’agent responsable de l’intervention en question doit être donné. Il peut s’agir d’une
+                        personne ou d’un organisme, auquel cas le contenu de l’élément Type de l’agent &lt;agentType&gt; doit être “human” (humain), ou du nom d’un système, auquel cas le contenu de l’élément &lt;agentType&gt; doit être
+                        “machine” (machine).</a:documentation>
+                     <optional>
+                        <ref name="id"/>
+                     </optional>
+                     <optional>
+                        <ref name="lang"/>
+                     </optional>
+                     <text/>
+                  </element>
+                  <optional>
+                     <element a:id="eventDesccription" name="eventDescription">
+                        <optional>
+                           <ref name="id"/>
+                        </optional>
+                        <optional>
+                           <ref name="lang"/>
+                        </optional>
+                        <text/>
+                     </element>
+                  </optional>
+               </element>
+            </oneOrMore>
+         </element>
+      </define>
+      <define name="e.languageDeclaration">
+         <element a:id="languageDeclaration" name="languageDeclaration">
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <ref name="e.language"/>
+            <ref name="e.script"/>
+            <optional>
+               <ref name="e.descriptiveNote"/>
+            </optional>
+         </element>
+      </define>
+      <define name="e.conventionDeclaration">
+         <element a:id="conventionDeclaration" name="conventionDeclaration">
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <optional>
+               <ref name="e.abbreviation"/>
+            </optional>
+            <ref name="e.citation"/>
+            <optional>
+               <ref name="e.descriptiveNote"/>
+            </optional>
+         </element>
+      </define>
+      <define name="e.localTypeDeclaration">
+         <element a:id="localTypeDeclaration" name="localTypeDeclaration">
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <optional>
+               <ref name="e.abbreviation"/>
+            </optional>
+            <ref name="e.citation"/>
+            <optional>
+               <ref name="e.descriptiveNote"/>
+            </optional>
+         </element>
+      </define>
+      <define name="e.abbreviation">
+         <element a:id="abbreviation" name="abbreviation">
+            <a:documentation xml:lang="eng">The &lt;abbreviation&gt; element contains an abbreviation or code for identifying a thesauri, controlled vocabularies, or other standard used in formulating and compiling the EAC-CPF
+               description.</a:documentation>
+            <a:documentation xml:lang="fre">L’élément Abréviation &lt;abbreviation&gt; contient une abréviation ou un code permettant d’identifier un thésaurus, des vocabulaires contrôlés ou d’autres normes utilisées dans la description
+               EAC-CPF.</a:documentation>
+            <a:documentation xml:lang="eng">The &lt;abbreviation&gt; element contains an abbreviation or code for identifying a thesauri, controlled vocabularies, or other standard used in formulating and compiling the EAC-CPF description.
+               It is recommended that the value be selected from an authorized list of codes. An example of such a list may be the MARC Code List (http://www.loc.gov/marc/relators/reladesc.html).</a:documentation>
+            <a:documentation xml:lang="fre">L’élément Abréviation &lt;abbreviation&gt; contient une abréviation ou un code permettant d’identifier un thésaurus, des vocabulaires contrôlés ou d’autres normes utilisées dans la description
+               EAC-CPF. Il est recommandé de choisir la valeur de cet élément dans une liste normalisée de codes, comme par exemple la liste de codes MARC (http://www.loc.gov/marc/relators/reladesc.html).</a:documentation>
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <data type="token"/>
+         </element>
+      </define>
+      <define name="e.localControl">
+         <element a:id="localControl" name="localControl">
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <ref name="a.localType"/>
+            <optional>
+               <ref name="e.term"/>
+            </optional>
+            <optional>
+               <choice>
+                  <ref name="e.dateSingle"/>
+                  <ref name="e.dateRange"/>
+               </choice>
+            </optional>
+         </element>
+      </define>
+      <define name="e.sources">
+         <element a:id="sources" name="sources">
+            <a:documentation xml:lang="eng">A record of the sources used for the description of the entity or entities in the EAC-CPF instance.</a:documentation>
+            <a:documentation xml:lang="fre">Enregistrement des sources utilisées pour la description de l’entité ou des entités dans l’instance EAC-CPF.</a:documentation>
+            <a:documentation xml:lang="eng">A wrapper element within &lt;control&gt; used to record one or more sources consulted in creating the description of the entity or entities in the EAC-CPF instance.</a:documentation>
+            <a:documentation xml:lang="fre">Élément englobant contenu dans l’élément Contrôle &lt;control&gt; utilisé pour encoder une ou plusieurs source(s) consultée(s) lors de la rédaction de la description de l’entité ou des entités
+               dans l’instance EAC-CPF.</a:documentation>
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <optional>
+               <ref name="base"/>
+            </optional>
+            <oneOrMore>
+               <element a:id="source" name="source">
+                  <a:documentation xml:lang="eng">A source of evidence used in describing the entity or entities in the EAC-CPF instance.</a:documentation>
+                  <a:documentation xml:lang="fre">Source d’information fiable utilisée dans la description de l’entité ou des entités dans l’instance EAC-CPF.</a:documentation>
+                  <a:documentation xml:lang="eng">An element for identifying a particular source of evidence used in describing the entity or entities. A record for the source must be included in either &lt;objectXMLWrap&gt; or
+                     &lt;objectBinWrap&gt;; or as a textual description in the &lt;sourceEntry&gt; element. Use the optional &lt;descriptiveNote&gt; for any additional notes about the source. A &lt;source&gt; in this context should not be
+                     confused with the &lt;citation&gt; element which is used in a number of descriptive elements to point to a resource that provides descriptive data which is not otherwise given in the EAC-CPF instance.A link to the
+                     source may be made using the XML Linking Language (Xlink) attributes (for which consult the specification at http://www.w3.org/TR/xlink/) and the last date and time that the source was verified can be given in the
+                     @lastDateTimeVerified attribute.</a:documentation>
+                  <a:documentation xml:lang="fre">Élément permettant d’identifier une source spécifique d’information fiable utilisée pour la description de l’entité ou des entités. Une notice ayant servi de source d’information doit être
+                     incluse soit dans l’élement Enveloppe d’objet XML &lt;objectXMLWrap&gt; soit dans l’élément Enveloppe d’objet binaire &lt;objectBinWrap&gt;, ou bien en texte libre dans l’élément Nom de la source &lt;sourceEntry&gt;.
+                     Pour toute note complémentaire sur la source utiliser l’élément facultatif Note descriptive &lt;descriptiveNote&gt;. Une &lt;source&gt; dans ce contexte ne doit pas être confondue avec l’élément Citation
+                     &lt;citation&gt; qui est utilisé dans un certain nombre d’éléments descriptifs pour pointer vers une ressource qui fournit des données descriptives non incluses dans l’instance EAC-CPF.Un lien vers la source peut être
+                     effectué en utilisant les attributs de XML Linking Language (XLink) (pour ce dernier consulter les spécifications à l’adresse http://www.w3.org/TR/xlink/) ;la dernière date et l’heure de vérification de la source
+                     peuvent être données dans l’attribut @lastDateTimeVerified.</a:documentation>
+                  <optional>
+                     <ref name="id"/>
+                  </optional>
+                  <optional>
+                     <ref name="a.lastDateTimeVerified"/>
+                  </optional>
+                  <optional>
+                     <ref name="simpleLink"/>
+                  </optional>
+                  <optional>
+                     <element a:id="sourceEntry" name="sourceEntry">
+                        <optional>
+                           <ref name="id"/>
+                        </optional>
+                        <optional>
+                           <ref name="m.entryLanguageAttributes"/>
+                        </optional>
+                        <text/>
+                     </element>
+                  </optional>
+                  <optional>
+                     <choice>
+                        <ref name="e.objectXMLWrap"/>
+                        <ref name="e.objectBinWrap"/>
+                     </choice>
+                  </optional>
+                  <optional>
+                     <ref name="e.descriptiveNote"/>
+                  </optional>
+               </element>
+            </oneOrMore>
+         </element>
+      </define>
+   </div>
+   <div a:documentation="Identity">
+      <define name="e.identity">
+         <element a:id="identity" name="identity">
+            <a:documentation xml:lang="eng">A wrapper element for the name portion of the EAC-CPF instance.</a:documentation>
+            <a:documentation xml:lang="fre">Élément englobant pour les formes du nom de l’instance EAC-CPF.</a:documentation>
+            <a:documentation xml:lang="eng">&lt;identity&gt; is a container element grouping all the necessary elements to the name identification of the EAC-CPF instance. Within this element the &lt;entityType&gt; element is required and
+               specifies the type of entity being described (i.e., corporateBody, family, or person), and one or more &lt;nameEntry&gt; elements and / or one or more &lt;nameEntryParallel&gt; elements specifying names by which the entity is
+               known. An optional &lt;entityId&gt; is available for any identifiers associated with the entity.All the names by which the entity being described in the EAC-CPF instance is known are provided within this element. Within
+               &lt;identity&gt;, the names of the entity, whether authorized or alternatives, should be recorded in a &lt;nameEntry&gt; element. If there is more than one name for the entity, each of them should be recorded in a separate
+               &lt;nameEntry&gt; element.In addition to needing to accommodate one or more names used for or by the entity, &lt;identity&gt; may accommodate two or more parallel names in different languages or scripts. In countries where
+               there is more than one official language, such as Canada or Switzerland, names of entities are frequently provided in more than one language. Within &lt;identity&gt;, a &lt;nameEntryParallel&gt; element should be used to
+               group two or more &lt;nameEntry&gt; elements that represent parallel forms of the name of the entity being described.Within &lt;identity&gt;, a &lt;descriptiveNote&gt; element may be used to record other information in a
+               textual form that assists in the identification of the entity.</a:documentation>
+            <a:documentation xml:lang="fre">Identité &lt;identity&gt; est un élément englobant qui regroupe l’ensemble des éléments nécessaires à l’identification du nom de l’instance EAC-CPF.À l’intérieur de cet élément sont obligatoires
+               l’élément Type d’entité &lt;entityType&gt;, qui indique le type de l’entité décrite (collectivité, famille ou personne), et au moins un élément Forme du nom &lt;nameEntry&gt;, qui spécifie les noms sous lesquels l’entité est
+               connue. Un élément facultatif Identifiant de l’entité &lt;entityId&gt; est utilisé pour indiquer tous les identifiants relatifs à l’entité.L’ensemble des noms sous lesquels est connue l’entité décrite dans l’instance EAC-CPF
+               sont mentionnés dans cet élément. Dans &lt;identity&gt;, les noms de l’entité, qu’ils soient formes retenues ou formes rejetées, doivent figurer dans un élément &lt;nameEntry&gt; particulier.En plus de contenir un ou
+               plusieurs nom(s) utilisé(s) par ou pour une entité, &lt;identity&gt; peut inclure au moins deux formes parallèles en différentes langues ou écritures. Dans les pays qui ont plus d’une langue officielle, à l’exemple du Canada
+               ou de la Suisse, les noms des entités se trouvent fréquemment dans plusieurs langues.Dans &lt;identity&gt;, un élément Forme parallèle du nom &lt;nameEntryParallel&gt; doit être utilisé pour regrouper au moins deux éléments
+               &lt;nameEntry&gt; qui expriment des formes parallèles du nom de l’entité décrite. &lt;identity&gt; contient un élément Note descriptive &lt;descriptiveNote&gt; qui peut être utilisé pour entrer sous forme textuelle toute
+               autre information aidant à l'identification de l’entité.</a:documentation>
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <optional>
+               <ref name="base"/>
+            </optional>
+            <optional>
+               <ref name="a.localType"/>
+            </optional>
+            <optional>
+               <attribute a:id="identityType" name="identityType">
+                  <choice>
+                     <value>given</value>
+                     <value>acquired</value>
+                  </choice>
+               </attribute>
+            </optional>
+            <zeroOrMore>
+               <element a:id="entityId" name="entityId">
+                  <optional>
+                     <ref name="id"/>
+                  </optional>
+                  <ref name="m.id"/>
+               </element>
+            </zeroOrMore>
+            <element a:id="entityType" name="entityType">
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <choice>
+                  <value>person</value>
+                  <value>corporateBody</value>
+                  <value>family</value>
+               </choice>
+            </element>
+            <oneOrMore>
+               <choice>
+                  <ref name="e.nameEntryParallel"/>
+                  <element a:id="nameEntry" name="nameEntry">
+                     <optional>
+                        <ref name="id"/>
+                     </optional>
+                     <ref name="m.entryLanguageAttributes"/>
+                     <optional>
+                        <ref name="a.localType"/>
+                     </optional>
+                     <oneOrMore>
+                        <ref name="e.part"/>
+                     </oneOrMore>
+                     <optional>
+                        <ref name="e.useDates"/>
+                     </optional>
+                     <ref name="m.nameEntryAuthorizedorAlternative"/>
+                  </element>
+               </choice>
+            </oneOrMore>
+            <optional>
+               <ref name="e.descriptiveNote"/>
+            </optional>
+         </element>
+      </define>
+      <define name="e.part">
+         <element a:id="part" name="part">
+            <a:documentation xml:lang="eng">&lt;part&gt; is used to distinguish components of the name of the entity.</a:documentation>
+            <a:documentation xml:lang="fre">L’élément Partie &lt;part&gt; est employé pour distinguer les éléments du nom d’une entité.</a:documentation>
+            <a:documentation xml:lang="eng">Within &lt;nameEntry&gt; each of the component parts of a name, such as forename, surname, honorific title, may be recorded in a separate &lt;part&gt; element. &lt;part&gt; may also contain the
+               full name of the entity when it is not possible to distinguish the different component parts of the name. The &lt;useDates&gt; element should be used for any date information associated with the name.The designation of the
+               information contained in the &lt;part&gt; can be specified by the attribute @localType.</a:documentation>
+            <a:documentation xml:lang="fre">Dans l’élément Forme du nom &lt;nameEntry&gt; chaque partie du nom, comme le prénom, le nom de famille, le titre honorifique, peut être encodée dans un élément Partie &lt;part&gt; distinct. Partie
+               &lt;part&gt; peut également contenir l’ensemble du nom lorsqu’il est impossible de distinguer les différentes parties composantes du nom. L’élément Dates d’utilisation &lt;useDates&gt; est employé pour toute information sous
+               forme de date associée au nom. Le type d’information contenue dans l’élément Partie &lt;part&gt; peut être précisé par un attribut @localType.</a:documentation>
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <optional>
+               <ref name="a.localType"/>
+            </optional>
+            <text/>
+         </element>
+      </define>
+      <define name="e.useDates">
+         <element a:id="useDates" name="useDates">
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <ref name="m.dates"/>
+         </element>
+      </define>
+      <define name="e.nameEntryParallel">
+         <element a:id="nameEntryParallel" name="nameEntryParallel">
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="a.localType"/>
+            </optional>
+            <ref name="m.nameEntryInParallel"/>
+            <oneOrMore>
+               <ref name="m.nameEntryInParallel"/>
+            </oneOrMore>
+            <optional>
+               <ref name="e.useDates"/>
+            </optional>
+            <ref name="m.nameEntryAuthorizedorAlternative"/>
+         </element>
+      </define>
+      <define name="m.nameEntryInParallel">
+         <element a:id="nameEntryInParallel" name="nameEntry">
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <ref name="m.entryLanguageAttributes"/>
+            <optional>
+               <ref name="a.localType"/>
+            </optional>
+            <oneOrMore>
+               <ref name="e.part"/>
+            </oneOrMore>
+            <zeroOrMore>
+               <element a:id="preferredForm" name="preferredForm">
+                  <optional>
+                     <ref name="id"/>
+                  </optional>
+                  <data type="NMTOKEN"><!-- NMTOKEN instead of maintenance agency code constraints because the 
+								code may be a non-conforming, i.e. otherAgencyCode --></data>
+               </element>
+            </zeroOrMore>
+         </element>
+      </define>
+      <define name="m.nameEntryAuthorizedorAlternative">
+         <zeroOrMore>
+            <choice>
+               <element a:id="authorizedForm" name="authorizedForm">
+                  <optional>
+                     <ref name="id"/>
+                  </optional>
+                  <data type="NMTOKEN"/>
+               </element>
+               <element a:id="alternativeForm" name="alternativeForm">
+                  <optional>
+                     <ref name="id"/>
+                  </optional>
+                  <data type="NMTOKEN"/>
+               </element>
+            </choice>
+         </zeroOrMore>
+      </define>
+   </div>
+   <div a:documentation="Description">
+      <define name="e.description">
+         <element a:id="description" name="description">
+            <a:documentation xml:lang="eng">A wrapper for all of the content elements comprising description (as specified in the ISAAR (CPF) Description Area) of the entity described in the EAC-CPF instance.</a:documentation>
+            <a:documentation xml:lang="fre">Élément englobant pour tous les éléments de contenu comprenant la description (conforme à la zone de la description dans ISAAR(CPF)) de l’entité décrite dans l’instance EAC-CPF.</a:documentation>
+            <a:documentation xml:lang="eng">The elements that constitute &lt;description&gt; together permit descriptive information to be encoded in either structured or unstructured fashions, or in a combined approach. &lt;description&gt;
+               accommodates encoding all of the data elements that comprise the Description Area of ISAAR (CPF) including historical, biographical, and genealogical information; legal status and mandates; functions, occupations, and
+               activities, and the dates and places that further constrain those elements.</a:documentation>
+            <a:documentation xml:lang="fre">Les éléments constitutifs de la Description &lt;description&gt; permettent d’encoder des informations descriptives de manière structurée ou non, ou dans une approche combinant les deux méthodes.
+               L’élément &lt;description&gt; accueille l’encodage de tous les éléments de données compris dans la zone de la description d’ISAAR(CPF), parmi lesquels les informations historiques, biographiques et généalogiques, le statut
+               juridique et les textes de référence, les fonctions, tâches et activités, ainsi que les dates et les lieux qui viennent préciser ces éléments.</a:documentation>
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <optional>
+               <ref name="base"/>
+            </optional>
+            <optional>
+               <ref name="e.existDates"/>
+            </optional>
+            <zeroOrMore>
+               <choice>
+                  <ref name="e.places"/>
+                  <ref name="e.place"/>
+                  <ref name="e.localDescription"/>
+                  <ref name="e.localDescriptions"/>
+                  <ref name="e.legalStatus"/>
+                  <ref name="e.legalStatuses"/>
+                  <ref name="e.function"/>
+                  <ref name="e.functions"/>
+                  <ref name="e.languageUsed"/>
+                  <ref name="e.languagesUsed"/>
+                  <ref name="e.occupation"/>
+                  <ref name="e.occupations"/>
+                  <ref name="e.mandate"/>
+                  <ref name="e.mandates"/>
+                  <ref name="e.structureOrGenealogy"/>
+                  <ref name="e.generalContext"/>
+               </choice>
+            </zeroOrMore>
+            <zeroOrMore>
+               <ref name="e.biogHist"/>
+            </zeroOrMore>
+         </element>
+      </define>
+      <define name="e.existDates">
+         <element a:id="existDates" name="existDates">
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <optional>
+               <ref name="a.localType"/>
+            </optional>
+            <ref name="m.dates"/>
+            <optional>
+               <ref name="e.descriptiveNote"/>
+            </optional>
+         </element>
+      </define>
+      <div a:documentation="Plural Versions">
+         <define name="e.places">
+            <element a:id="places" name="places">
+               <a:documentation xml:lang="eng">A grouping element used to bundle together individual &lt;place&gt; elements.</a:documentation>
+               <a:documentation xml:lang="fre">Élément de regroupement utilisé pour relier entre eux des éléments individuels Lieu &lt;place&gt;.</a:documentation>
+               <a:documentation xml:lang="eng">Use the optional &lt;places&gt; element to group together one or more occurrences of &lt;place&gt; so that they can be manipulated as a package. A single &lt;place&gt; may stand alone or may be
+                  wrapped within &lt;places&gt;.The optional &lt;citation&gt;, &lt;list&gt;, and &lt;outline&gt; elements are used to accommodate greater complexity in expressing or representing the places and dates being described. A
+                  simpler discursive expression of the places may be encoded as one or more &lt;p&gt; elements.</a:documentation>
+               <a:documentation xml:lang="fre">Utiliser l’élément facultatif Lieux &lt;places&gt; pour regrouper plusieurs éléments Lieu &lt;place&gt; de manière à pouvoir les traiter comme un ensemble. Un élément Lieu &lt;place&gt; unique
+                  peut rester isolé ou être englobé dans un élément Lieux &lt;places&gt;. Les éléments facultatifs Citation &lt;citation&gt;, Liste &lt;list&gt; et Vue d’ensemble &lt;outline&gt; sont utilisés pour décrire les lieux ou les
+                  dates de manière plus complexe. Pour une présentation plus simple en texte libre on peut utiliser un ou plusieurs élément(s) Paragraphe &lt;p&gt;.</a:documentation>
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <optional>
+                  <ref name="lang"/>
+               </optional>
+               <optional>
+                  <ref name="a.localType"/>
+               </optional>
+               <choice>
+                  <group>
+                     <oneOrMore>
+                        <ref name="e.place"/>
+                     </oneOrMore>
+                     <optional>
+                        <ref name="e.descriptiveNote"/>
+                     </optional>
+                  </group>
+                  <zeroOrMore>
+                     <ref name="m.discursiveSet"/>
+                  </zeroOrMore>
+               </choice>
+            </element>
+         </define>
+         <define name="e.localDescriptions">
+            <element a:id="localDescriptions" name="localDescriptions">
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <optional>
+                  <ref name="lang"/>
+               </optional>
+               <ref name="a.localType"/>
+               <choice>
+                  <group>
+                     <oneOrMore>
+                        <ref name="e.localDescription"/>
+                     </oneOrMore>
+                     <optional>
+                        <ref name="e.descriptiveNote"/>
+                     </optional>
+                  </group>
+                  <zeroOrMore>
+                     <ref name="m.discursiveSet"/>
+                  </zeroOrMore>
+               </choice>
+            </element>
+         </define>
+         <define name="e.languagesUsed">
+            <element a:id="languagesUsed" name="languagesUsed">
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <optional>
+                  <ref name="lang"/>
+               </optional>
+               <optional>
+                  <ref name="a.localType"/>
+               </optional>
+               <oneOrMore>
+                  <ref name="e.languageUsed"/>
+               </oneOrMore>
+               <optional>
+                  <ref name="e.descriptiveNote"/>
+               </optional>
+            </element>
+         </define>
+         <define name="e.legalStatuses">
+            <element a:id="legalStatuses" name="legalStatuses">
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <optional>
+                  <ref name="lang"/>
+               </optional>
+               <optional>
+                  <ref name="a.localType"/>
+               </optional>
+               <choice>
+                  <group>
+                     <oneOrMore>
+                        <ref name="e.legalStatus"/>
+                     </oneOrMore>
+                     <optional>
+                        <ref name="e.descriptiveNote"/>
+                     </optional>
+                  </group>
+                  <zeroOrMore>
+                     <ref name="m.discursiveSet"/>
+                  </zeroOrMore>
+               </choice>
+            </element>
+         </define>
+         <define name="e.occupations">
+            <element a:id="occupations" name="occupations">
+               <a:documentation xml:lang="eng">A grouping element used to bundle together individual &lt;occupation&gt; elements.</a:documentation>
+               <a:documentation xml:lang="fre">Élément de regroupement qui sert à lier entre eux des éléments individuels Occupation &lt;occupation&gt;.</a:documentation>
+               <a:documentation xml:lang="eng">Use the optional &lt;occupations&gt; element to group together one or more occurrences of &lt;occupation&gt; so that they can be manipulated as a package. A single &lt;occupation&gt; may stand
+                  alone or may be wrapped within &lt;occupations&gt;.The optional &lt;citation&gt;, &lt;list&gt;, and &lt;outline&gt; elements are used to accommodate greater complexity in expressing or representing the occupations being
+                  described. A simpler discursive expression of the occupations may be encoded as one or more &lt;p&gt; elements.</a:documentation>
+               <a:documentation xml:lang="fre">Utiliser l’élément facultatif Occupations &lt;occupations&gt; pour regrouper plusieurs occurrences de l’élément Occupation &lt;occupation&gt; de manière à pouvoir les traiter comme un ensemble.
+                  Un élément &lt;occupation&gt; unique peut rester isolé ou peut être englobé dans l'élément &lt;occupations&gt;.Les éléments facultatifs Citation &lt;citation&gt;, Liste &lt;list&gt; et Vue d’ensemble &lt;outline&gt; sont
+                  utilisés pour décrire les occupations de manière plus complexe. Pour une présentation plus simple, sous forme de texte, on peut utiliser un ou plusieurs élément(s) Paragraphe &lt;p&gt;.</a:documentation>
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <optional>
+                  <ref name="lang"/>
+               </optional>
+               <optional>
+                  <ref name="a.localType"/>
+               </optional>
+               <choice>
+                  <group>
+                     <oneOrMore>
+                        <ref name="e.occupation"/>
+                     </oneOrMore>
+                     <optional>
+                        <ref name="e.descriptiveNote"/>
+                     </optional>
+                  </group>
+                  <zeroOrMore>
+                     <ref name="m.discursiveSet"/>
+                  </zeroOrMore>
+               </choice>
+            </element>
+         </define>
+         <define name="e.functions">
+            <element a:id="functions" name="functions">
+               <a:documentation xml:lang="eng">A grouping element used to bundle together individual &lt;function&gt; elements.</a:documentation>
+               <a:documentation xml:lang="fre">Elément de regroupement qui sert à lier entre eux des éléments individuels Fonction &lt;function&gt;.</a:documentation>
+               <a:documentation xml:lang="eng">Use the optional &lt;functions&gt; element to group together one or more occurrences of &lt;function&gt; so that they can be manipulated as a package. A single &lt;function&gt; may stand alone
+                  or may be wrapped within &lt;functions&gt;.The optional &lt;citation&gt;, &lt;list&gt;, and &lt;outline&gt; elements are used to accommodate greater complexity in expressing or representing the functions, processes,
+                  activities, tasks, or transactions being described. A simpler discursive expression of the functions may be encoded as one or more &lt;p&gt; elements.</a:documentation>
+               <a:documentation xml:lang="fre">Utiliser l’élément facultatif Fonctions &lt;functions&gt; pour regrouper plusieurs occurrences de l’élément Fonction &lt;function&gt; de manière à pouvoir les traiter comme un ensemble. Un
+                  élément &lt;function&gt; unique peut rester isolé ou peut être englobé dans l'élément &lt;functions&gt;.Les éléments facultatifs Citation &lt;citation&gt;, Liste &lt;list&gt; et Vue d’ensemble &lt;outline&gt; sont utilisés
+                  pour exprimer de manière plus complexe des fonctions, processus de travail, activités, tâches ou transactions décrites. Pour une présentation plus simple sous forme de texte, on peut utiliser un ou plusieurs élément(s)
+                  Paragraphe &lt;p&gt;.</a:documentation>
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <optional>
+                  <ref name="lang"/>
+               </optional>
+               <optional>
+                  <ref name="a.localType"/>
+               </optional>
+               <choice>
+                  <group>
+                     <oneOrMore>
+                        <ref name="e.function"/>
+                     </oneOrMore>
+                     <optional>
+                        <ref name="e.descriptiveNote"/>
+                     </optional>
+                  </group>
+                  <zeroOrMore>
+                     <ref name="m.discursiveSet"/>
+                  </zeroOrMore>
+               </choice>
+            </element>
+         </define>
+         <define name="e.mandates">
+            <element a:id="mandates" name="mandates">
+               <a:documentation xml:lang="eng">A grouping element used to bundle together individual &lt;mandate&gt; elements.</a:documentation>
+               <a:documentation xml:lang="fre">Élément regroupant qui sert à lier entre eux des éléments individuels Mandat &lt;mandate&gt;.</a:documentation>
+               <a:documentation xml:lang="eng">Use the optional &lt;mandates&gt; element to group together one or more occurrences of &lt;mandate&gt; so that they can be manipulated as a package. A single &lt;mandate&gt; may stand alone or
+                  may be wrapped within &lt;mandates&gt;.The optional &lt;citation&gt;, &lt;list&gt;, and &lt;outline&gt; elements are used to accommodate greater complexity in expressing or representing the mandates being described. A
+                  simpler discursive expression of the mandates may be encoded as one or more &lt;p&gt; elements.</a:documentation>
+               <a:documentation xml:lang="fre">Utiliser l’élément facultatif Mandats &lt;mandates&gt; pour regrouper plusieurs occurrences de Mandat &lt;mandate&gt; de manière à pouvoir les traiter comme un ensemble. Un élément
+                  &lt;mandate&gt; unique peut rester isolé ou être englobé dans l'élément &lt;mandates&gt;.Les éléments facultatifs Citation &lt;citation&gt;, Liste &lt;list&gt; et Vue d’ensemble &lt;outline&gt; sont utilisés pour décrire
+                  les mandats de manière plus complexe. Pour une présentation plus simple, sous forme de texte, on peut utiliser un ou plusieurs élément(s) Paragraphe &lt;p&gt;.</a:documentation>
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <optional>
+                  <ref name="lang"/>
+               </optional>
+               <optional>
+                  <ref name="a.localType"/>
+               </optional>
+               <choice>
+                  <group>
+                     <oneOrMore>
+                        <ref name="e.mandate"/>
+                     </oneOrMore>
+                     <optional>
+                        <ref name="e.descriptiveNote"/>
+                     </optional>
+                  </group>
+                  <zeroOrMore>
+                     <ref name="m.discursiveSet"/>
+                  </zeroOrMore>
+               </choice>
+            </element>
+         </define>
+         <define name="m.discursiveSet">
+            <choice>
+               <ref name="e.p"/>
+               <ref name="e.outline"/>
+               <ref name="e.list"/>
+               <ref name="e.citation"/>
+            </choice>
+         </define>
+      </div>
+      <div a:documentation="Singular Version">
+         <define name="e.place">
+            <element a:id="place" name="place">
+               <a:documentation xml:lang="eng">An element that provides information about a place or jurisdiction where the EAC-CPF entity was based, lived, or with which it had some other significant connection.</a:documentation>
+               <a:documentation xml:lang="fre">Élément fournissant des informations sur un lieu ou une circonscription où l’entité faisant l’objet de l’instance EAC-CPF était établie, a vécu, ou avec lequel ou laquelle elle a eu tout autre
+                  lien significatif.</a:documentation>
+               <a:documentation xml:lang="eng">A &lt;place&gt; element is a wrapper element used to encode an index term, using the child element &lt;placeEntry&gt;. Terms are used to identify the places or jurisdictions where the EAC-CPF
+                  entity was based, lived, or with which it had some other significant connection. The &lt;placeRole&gt; element is available to specify the nature of the connection of the place with the entity being described, and its use
+                  is strongly recommended. Terms in &lt;placeEntry&gt; and &lt;placeRole&gt; may be drawn from controlled vocabularies or may be natural language terms. These controlled vocabularies can be identified with the
+                  @vocabularySource attribute. Associated date or date range (&lt;date&gt;, &lt;dateRange&gt; or &lt;dateSet&gt;) information may be included to further constrain the term's meaning. A &lt;descriptiveNote&gt; may be included
+                  if a fuller textual explanation is needed. An &lt;address&gt; element is also available for specifying a postal or other address. A &lt;descriptiveNote&gt; element may be included for more detailed specifications or
+                  explanation of the relation between the values.A single &lt;place&gt; element may be encoded directly within &lt;description&gt;. Alternatively, multiple &lt;place&gt; elements may be grouped within a &lt;places&gt;
+                  wrapper that facilitates manipulating them as a group.Places may alternatively be described in discursive form in &lt;biogHist&gt; (ISAAR (CPF) History 5.2.2). The &lt;place&gt; element should be used whenever separate
+                  semantic processing of information about places is required.</a:documentation>
+               <a:documentation xml:lang="fre">Un élément Lieu &lt;place&gt; est un élément englobant utilisé pour encoder un terme d’indexation, en utilisant l’élément enfant Forme du nom de lieu &lt;placeEntry&gt;. Les termes sont
+                  utilisés pour identifier les lieux ou circonscriptions dans lesquelles l’entité décrite était établie, a vécu ou avec laquelle elle a eu tout autre lien significatif. L’élément Rôle du lieu &lt;placeRole&gt; est disponible
+                  pour préciser la nature du lien entre le lieu et l’entité décrite, et son utilisation est fortement recommandée. Les termes dans &lt;placeEntry&gt; et &lt;placeRole&gt; peuvent être issus de vocabulaires contrôlés ou
+                  peuvent être des termes du langage naturel. Ces vocabulaires contrôlés peuvent être identifiés avec l’attribut @vocabularySource. Des dates ou intervalles de dates (Date &lt;date&gt;, Intervalle de dates &lt;dateRange&gt;
+                  ou Ensemble de dates &lt;dateSet&gt;) peuvent être introduits pour préciser la portée du terme. Un élément Note descriptive &lt;descriptiveNote&gt; peut être introduit si une explication en texte libre est nécessaire. Un
+                  élément Adresse &lt;address&gt; est également disponible pour préciser une adresse postale ou une autre adresse. Un élément &lt;descriptiveNote&gt; peut y être inclus pour des précisions ou des explications plus détaillées
+                  de la relation entre les valeurs.Un élément &lt;place&gt; utilisé seul peut être encodé directement dans Description &lt;description&gt;. Lorsqu’il y en a plusieurs, ils peuvent être regroupés à l’aide de l’élément Lieux
+                  &lt;places&gt; qui permet de les manipuler comme un ensemble.Les lieux peuvent également être décrits sous la forme d’un texte dans un élément Biographie ou histoire &lt;biogHist&gt; (ISAAR (CPF) Histoire 5.2.2). L’élément
+                  &lt;place&gt; doit être utilisé chaque fois qu’un traitement sémantique distinct des informations relatives aux lieux est nécessaire.</a:documentation>
+               <!-- Note that place uses the same model as m.simpleDescription except for the insertion of 
+					address-->
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <optional>
+                  <ref name="lang"/>
+               </optional>
+               <optional>
+                  <ref name="a.localType"/>
+               </optional>
+               <optional>
+                  <ref name="e.placeRole"/>
+               </optional>
+               <zeroOrMore>
+                  <ref name="e.placeEntry"/>
+               </zeroOrMore>
+               <optional>
+                  <element a:id="address" name="address">
+                     <a:documentation xml:lang="eng">A postal or other address.</a:documentation>
+                     <a:documentation xml:lang="fre">Une adresse postale ou d'un autre type.</a:documentation>
+                     <a:documentation xml:lang="eng">&lt;address&gt; is a wrapper element within &lt;place&gt;. It contains one or more &lt;addressLine&gt; elements that together comprise full or sufficient information identifying a postal
+                        or other address related to the entity being described.</a:documentation>
+                     <a:documentation xml:lang="fre">Adresse &lt;address&gt; est un élément englobant au sein de l'élément Lieu &lt;place&gt;. Il contient un ou plusieurs élément(s) Ligne d'adresse &lt;addressLine&gt; qui, ensemble,
+                        comprennent suffisamment d'informations pour identifier une adresse liée à l'entité décrite, qu’elle soit postale ou d'un autre type.</a:documentation>
+                     <optional>
+                        <ref name="id"/>
+                     </optional>
+                     <optional>
+                        <ref name="lang"/>
+                     </optional>
+                     <optional>
+                        <ref name="a.localType"/>
+                     </optional>
+                     <oneOrMore>
+                        <element a:id="addressLine" name="addressLine">
+                           <optional>
+                              <ref name="id"/>
+                           </optional>
+                           <optional>
+                              <ref name="lang"/>
+                           </optional>
+                           <optional>
+                              <ref name="a.localType"/>
+                           </optional>
+                           <text/>
+                        </element>
+                     </oneOrMore>
+                  </element>
+               </optional>
+               <optional>
+                  <ref name="m.dates"/>
+               </optional>
+               <optional>
+                  <ref name="e.citation"/>
+               </optional>
+               <optional>
+                  <ref name="e.descriptiveNote"/>
+               </optional>
+            </element>
+         </define>
+         <define name="e.placeEntry">
+            <element a:id="placeEntry" name="placeEntry">
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <optional>
+                  <ref name="m.entryLanguageAttributes"/>
+               </optional>
+               <optional>
+                  <ref name="a.localType"/>
+               </optional>
+               <optional>
+                  <attribute a:id="countryCode" name="countryCode">
+                     <choice>
+                        <data type="string">
+                           <param name="pattern">[A-Z]{2}</param>
+                        </data>
+                        <data type="string">
+                           <param name="pattern">[A-Z]{4}</param>
+                        </data>
+                     </choice>
+                  </attribute>
+               </optional>
+               <optional>
+                  <ref name="a.vocabularySource"/>
+               </optional>
+               <optional>
+                  <attribute a:id="accuracy" name="accuarcy">
+                     <text/>
+                  </attribute>
+               </optional>
+               <optional>
+                  <ref name="m.geographicalCoordinates"/>
+               </optional>
+               <text/>
+            </element>
+         </define>
+         <define name="e.localDescription">
+            <element a:id="localDescription" name="localDescription">
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <optional>
+                  <ref name="lang"/>
+               </optional>
+               <ref name="a.localType"/>
+               <ref name="m.simpleDescription"/>
+            </element>
+         </define>
+         <define name="e.languageUsed">
+            <element a:id="languageUsed" name="languageUsed">
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <optional>
+                  <ref name="lang"/>
+               </optional>
+               <optional>
+                  <ref name="a.localType"/>
+               </optional>
+               <ref name="e.language"/>
+               <ref name="e.script"/>
+               <optional>
+                  <ref name="e.descriptiveNote"/>
+               </optional>
+            </element>
+         </define>
+         <define name="e.legalStatus">
+            <element a:id="legalStatus" name="legalStatus">
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <optional>
+                  <ref name="lang"/>
+               </optional>
+               <optional>
+                  <ref name="a.localType"/>
+               </optional>
+               <ref name="m.simpleDescription"/>
+            </element>
+         </define>
+         <define name="e.occupation">
+            <element a:id="occupation" name="occupation">
+               <a:documentation xml:lang="eng">An element that provides information about the occupation of the entity being described.</a:documentation>
+               <a:documentation xml:lang="fre">Élément qui fournit des informations sur l'occupation de l'entité décrite.</a:documentation>
+               <a:documentation xml:lang="eng">An &lt;occupation&gt; element is a wrapper element used to encode an index term, using the child element &lt;term&gt;. Terms are used to identify an occupation held by the EAC-CPF entity. Terms
+                  may be drawn from controlled vocabularies or may be natural language terms. Associated date or date range (&lt;date&gt;, &lt;dateRange&gt; or &lt;dateSet&gt;) and place(s) (&lt;placeEntry&gt;) may be included to further
+                  constrain the term's meaning. A &lt;descriptiveNote&gt; element may be included if a fuller textual explanation needed.A single &lt;occupation&gt; element may be encoded directly within &lt;description&gt;. Alternatively,
+                  multiple &lt;occupation&gt; elements may be grouped within a &lt;occupations&gt; wrapper that facilitates manipulating them as a group.Occupations may alternatively be described in discursive form in &lt;biogHist&gt;
+                  (ISAAR (CPF) History 5.2.2). The &lt;occupation&gt; element should be used whenever separate semantic processing of information about occupations is required.</a:documentation>
+               <a:documentation xml:lang="fre">L'élément Occupation &lt;occupation&gt; est un élément englobant qui sert à encoder un terme d'indexation à l'aide de l'élément-enfant Terme &lt;term&gt;. Les termes utilisés servent à
+                  identifier la ou les occupation(s) de l'entité EAC-CPF. Les termes utilisés peuvent être issus de vocabulaires contrôlés ou exprimés en langage naturel. Des dates ou intervalles de dates (Date &lt;date&gt;, Intervalle de
+                  dates &lt;dateRange&gt; ou Ensemble de dates &lt;dateSet&gt;) ou des lieux (Forme du nom de lieu &lt;placeEntry&gt;) peuvent être introduits pour préciser la portée du terme. Une Note descriptive &lt;descriptiveNote&gt;
+                  peut être introduite si une explication en texte libre est nécessaire.Un élément &lt;occupation&gt; utilisé seul peut être encodé directement dans l'élément Description &lt;description&gt;. S’il y en a plusieurs, on peut
+                  les regrouper à l'aide de l'élément Occupations &lt;occupations&gt; qui permet de les manipuler comme un ensemble.On peut également décrire les occupations sous forme de texte dans l’élément Biographie ou histoire
+                  &lt;biogHist&gt; (ISAAR (CPF) Histoire 5.2.2.). L'élément &lt;occupation&gt; doit être utilisé chaque fois qu’un traitement sémantique distinct des informations relatives aux occupations est nécessaire.</a:documentation>
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <optional>
+                  <ref name="lang"/>
+               </optional>
+               <optional>
+                  <ref name="a.localType"/>
+               </optional>
+               <ref name="m.simpleDescription"/>
+            </element>
+         </define>
+         <define name="e.function">
+            <element a:id="function" name="function">
+               <a:documentation xml:lang="eng">An element that provides information about a function, activity, role, or purpose performed or manifested by the entity being described.</a:documentation>
+               <a:documentation xml:lang="fre">Élément qui fournit des informations sur une fonction, une activité, un rôle ou un objectif réalisés ou présentés par l'entité décrite.</a:documentation>
+               <a:documentation xml:lang="eng">A &lt;function&gt; element is a wrapper element used to encode an index term, using the child element &lt;term&gt;. Terms are used to identify the functions, processes, activities, tasks, or
+                  transactions performed by the EAC-CPF entity. They may be drawn from controlled vocabularies or may be natural language terms. Associated date or date range (&lt;date&gt;, &lt;dateRange&gt; or &lt;dateSet&gt;) and place(s)
+                  (&lt;placeEntry&gt;) may be included to further constrain the term’s meaning. A &lt;descriptiveNote&gt; may be included if a fuller textual explanation is needed.A single &lt;function&gt; element may be encoded directly
+                  within &lt;description&gt;. Alternatively, multiple &lt;function&gt; elements may be grouped within a &lt;functions&gt; wrapper that facilitates manipulating them as a group.Functions may alternatively be described in
+                  discursive form in &lt;biogHist&gt; (ISAAR (CPF) History 5.2.2). The &lt;function&gt; element should be used whenever separate semantic processing of information about functions is required.As a further alternative,
+                  descriptions of functions may form discrete components in an archival descriptive system. Such descriptions should be compiled in accordance with the International Standard for Describing Functions (ISDF) and will
+                  typically be described in another encoding language. In such a system, use &lt;functionRelation&gt; to point from the EAC-CPF entity to the related function description. In these systems, the &lt;function&gt; element will
+                  probably become redundant.</a:documentation>
+               <a:documentation xml:lang="fre">L'élément Fonction &lt;function&gt; est un élément englobant qui sert à encoder des termes d'indexation en utilisant l'élément-enfant Terme &lt;term&gt;. Les termes utilisés identifient les
+                  fonctions, processus de travail, activités, tâches ou transactions accomplis par l'entité décrite dans l’instance EAC-CPF. Les termes utilisés peuvent être tirés de vocabulaires contrôlés ou exprimés en langage naturel.
+                  Des dates ou intervalles de dates (Date &lt;date&gt;, Intervalle de dates &lt;dateRange&gt;ou Ensemble de dates &lt;dateSet&gt;) ou des lieux (Forme du nom de lieu &lt;placeEntry&gt;) peuvent être introduits pour préciser
+                  le sens du terme. Une Note descriptive &lt;descriptiveNote&gt; peut être introduite si une explication sous forme de texte est nécessaire. Un élément &lt;function&gt; utilisé seul peut être encodé directement dans
+                  l'élément Description &lt;description&gt;. Lorsqu'il y en a plusieurs, ils peuvent être regroupés à l'aide de l'élément &lt;functions&gt; qui permet de les manipuler comme un ensemble.On peut également décrire les
+                  fonctions sous forme de texte dans &lt;biogHist&gt; (ISAAR (CPF) Histoire 5.2.2.). L'élément &lt;function&gt; doit être utilisé chaque fois qu’un traitement sémantique distinct des informations relatives aux fonctions est
+                  nécessaire. Les descriptions des fonctions peuvent aussi faire l'objet de composants distincts dans un système de description archivistique. De telles descriptions doivent être mises en conformité avec la Norme
+                  internationale pour la description des fonctions (ISDF) et seront donc décrites dans un autre schéma d'encodage. Dans un tel système, utiliser Relation avec une fonction &lt;functionRelation&gt; pour pointer de l'entité
+                  EAC-CPF à la description de la fonction qui lui est reliée. Dans ce type de système, l’élément &lt;function&gt; devient probablement redondant.</a:documentation>
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <optional>
+                  <ref name="lang"/>
+               </optional>
+               <optional>
+                  <ref name="a.localType"/>
+               </optional>
+               <ref name="m.simpleDescription"/>
+            </element>
+         </define>
+         <define name="e.mandate">
+            <element a:id="mandate" name="mandate">
+               <a:documentation xml:lang="eng">The source of authority or mandate for the corporate body in terms of its powers, functions, responsibilities or sphere of activities, such as a law, directive, or charter.</a:documentation>
+               <a:documentation xml:lang="fre">Texte de référence ou mandat d'une collectivité précisant ses pouvoirs, fonctions, responsabilités ou sphères d'activité, par exemple un texte de loi, directive ou convention.</a:documentation>
+               <a:documentation xml:lang="eng">A &lt;mandate&gt; element is a wrapper element used to encode an index term, using the child element, &lt;term&gt;. Terms are used to identify the source of authority or mandate for the
+                  corporate body in terms of its powers, functions, responsibilities or sphere of activities, such as a law, directive or charter. Terms may be drawn from controlled vocabularies or may be natural language terms. Associated
+                  date or date range (&lt;date&gt;, &lt;dateRange&gt; or &lt;dateSet&gt;) and place(s) (&lt;placeEntry&gt;) may be included to further constrain the term's meaning. A &lt;descriptiveNote&gt; element may be included if a
+                  fuller textual explanation is needed.A single &lt;mandate&gt; element may be encoded directly within &lt;description&gt;. Alternatively, multiple &lt;mandate&gt; elements may be grouped within
+                  &lt;mandates&gt;.</a:documentation>
+               <a:documentation xml:lang="fre">L'élément Mandat &lt;mandate&gt; est un élément englobant qui sert à encoder des termes d'indexation à l'aide de l'élément-enfant Terme &lt;term&gt;. Les termes utilisés servent à identifier le
+                  texte de référence (loi, directive, convention) ou les attributions d'une collectivité en matière de pouvoirs, fonctions, responsabilités ou sphères d'activités.Les termes utilisés peuvent être issus de vocabulaires
+                  contrôlés ou exprimés en langage naturel. Des dates ou intervalles de dates (Date &lt;date&gt;, Intervalle de dates &lt;dateRange&gt; ou Ensemble de dates &lt;dateSet&gt;) ou des lieux (Forme du nom de lieu
+                  &lt;placeEntry&gt;) peuvent être introduits pour préciser la portée du terme. Une Note descriptive &lt;descriptiveNote&gt; peut être introduite si une explication sous forme de texte est nécessaire. Un élément
+                  &lt;mandate&gt; utilisé seul peut être encodé directement dans l'élément Description &lt;description&gt;. Lorsqu'il y en a plusieurs, ils peuvent être regroupés à l'aide de l'élément Mandats
+                  &lt;mandates&gt;.</a:documentation>
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <optional>
+                  <ref name="lang"/>
+               </optional>
+               <optional>
+                  <ref name="a.localType"/>
+               </optional>
+               <ref name="m.simpleDescription"/>
+            </element>
+         </define>
+         <define name="m.simpleDescription">
+            <optional>
+               <ref name="e.term"/>
+            </optional>
+            <zeroOrMore>
+               <ref name="e.placeEntry"/>
+            </zeroOrMore>
+            <optional>
+               <ref name="m.dates"/>
+            </optional>
+            <optional>
+               <ref name="e.citation"/>
+            </optional>
+            <optional>
+               <ref name="e.descriptiveNote"/>
+            </optional>
+         </define>
+         <define name="e.placeRole">
+            <element a:id="placeRole" name="placeRole">
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <optional>
+                  <ref name="m.entryLanguageAttributes"/>
+               </optional>
+               <optional>
+                  <ref name="a.lastDateTimeVerified"/>
+               </optional>
+               <optional>
+                  <ref name="a.vocabularySource"/>
+               </optional>
+               <text/>
+            </element>
+         </define>
+      </div>
+      <define name="e.structureOrGenealogy">
+         <element a:id="structureOrGenealogy" name="structureOrGenealogy">
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <optional>
+               <ref name="a.localType"/>
+            </optional>
+            <zeroOrMore>
+               <ref name="m.discursiveSet"/>
+            </zeroOrMore>
+         </element>
+      </define>
+      <define name="e.generalContext">
+         <element a:id="generalContext" name="generalContext">
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <optional>
+               <ref name="a.localType"/>
+            </optional>
+            <zeroOrMore>
+               <ref name="m.discursiveSet"/>
+            </zeroOrMore>
+         </element>
+      </define>
+      <define name="e.biogHist">
+         <element a:id="biogHist" name="biogHist">
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <optional>
+               <ref name="a.localType"/>
+            </optional>
+            <optional>
+               <ref name="e.abstract"/>
+            </optional>
+            <zeroOrMore>
+               <choice>
+                  <ref name="e.chronList"/>
+                  <ref name="e.list"/>
+                  <ref name="e.p"/>
+                  <ref name="e.outline"/>
+                  <ref name="e.citation"/>
+               </choice>
+            </zeroOrMore>
+         </element>
+      </define>
+      <define name="e.abstract">
+         <element a:id="abstract" name="abstract">
+            <a:documentation xml:lang="eng">An element that encodes a brief summary of the information contained within the &lt;biogHist&gt; as a whole. </a:documentation>
+            <a:documentation xml:lang="fre">Élément encodant un bref résumé des informations contenues dans l’élément Biographie ou histoire &lt;biogHist&gt;.</a:documentation>
+            <a:documentation xml:lang="eng">The &lt;abstract&gt; is a 1-2 sentence synopsis of the identity’s biography or history that is often extracted from the longer descriptions found in &lt;biogHist&gt;. Its purpose is to help
+               readers quickly identify the entity described in the EAC-CPF instance. The content within this element may also be harvested by other systems to provide explanatory context for the &lt;nameEntry&gt; data when it appears in a
+               set of search results.</a:documentation>
+            <a:documentation xml:lang="fre">L’élément Résumé &lt;abstract&gt; donne en une ou deux phrases un résumé de la biographie ou de l’histoire de l’entité décrite dans l’instance EAC-CPF. Ce résumé est le plus souvent extrait des
+               descriptions plus longues figurant dans &lt;biogHist&gt;. Son objectif est d’aider les lecteurs à identifier rapidement l’entité décrite dans l’instance EAC-CPF. Le contenu de cet élément peut être également moissonné par
+               d’autres systèmes pour fournir des explications contextuelles sur les données de l’élément Forme du nom &lt;nameEntry&gt; lorsque celles-ci apparaissent dans une liste de résultats de recherche.</a:documentation>
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <optional>
+               <ref name="a.localType"/>
+            </optional>
+            <ref name="m.mixedContent"/>
+         </element>
+      </define>
+   </div>
+   <div a:documentation="Relations">
+      <define name="e.relations">
+         <element a:id="relations" name="relations">
+            <a:documentation xml:lang="eng">A wrapper element for grouping one or more specific relations.</a:documentation>
+            <a:documentation xml:lang="fre">Élément englobant qui regroupe une ou plusieurs relation(s) précise(s).</a:documentation>
+            <a:documentation xml:lang="eng">A wrapper element that groups together one or more relation elements, each of which denotes a specific relationship. Entities may have relationships with other corporate bodies, persons or
+               families, which may be expressed using &lt;cpfRelation&gt;; functions, which may be expressed using &lt;functionRelation&gt;; or resources such as archival collections, bibliographic resources, or artifacts, which may be
+               expressed using &lt;resourceRelation&gt;.</a:documentation>
+            <a:documentation xml:lang="fre">Élément englobant qui regroupe un ou plusieurs élément(s) de relation, chacun représentant une relation précise.Les entités peuvent être en relation avec d’autres collectivités, personnes ou
+               familles ; ces relations peuvent être exprimées avec l’élément Relation avec une collectivité, une personne ou une famille &lt;cpfRelation&gt;.Les entités peuvent être en relation avec des fonctions ; ces relations peuvent
+               être exprimées avec l’élément Relation avec une fonction &lt;functionRelation&gt;.Enfin, les entités peuvent être en relation avec des ressources (fonds d’archives, ressources bibliographiques ou artefacts) ; ces relations
+               peuvent être exprimées avec l’élément Relation avec une ressource &lt;resourceRelation&gt;.</a:documentation>
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <optional>
+               <ref name="base"/>
+            </optional>
+            <zeroOrMore>
+               <ref name="e.cpfRelation"/>
+            </zeroOrMore>
+            <zeroOrMore>
+               <ref name="e.resourceRelation"/>
+            </zeroOrMore>
+            <zeroOrMore>
+               <ref name="e.functionRelation"/>
+            </zeroOrMore>
+         </element>
+      </define>
+      <define name="e.relationEntry">
+         <element a:id="relationEntry" name="relationEntry">
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="a.localType"/>
+            </optional>
+            <optional>
+               <ref name="m.entryLanguageAttributes"/>
+            </optional>
+            <text/>
+         </element>
+      </define>
+      <define name="e.objectXMLWrap">
+         <element a:id="objectXMLWrap" name="objectXMLWrap">
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <ref name="e.anyName"/>
+         </element>
+      </define>
+      <define name="e.objectBinWrap">
+         <element a:id="objectBinWrap" name="objectBinWrap">
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <data type="base64Binary"/>
+         </element>
+      </define>
+      <define name="m.relationBody">
+         <optional>
+            <ref name="a.lastDateTimeVerified"/>
+         </optional>
+         <optional>
+            <ref name="simpleLink"/>
+         </optional>
+         <zeroOrMore>
+            <ref name="e.relationEntry"/>
+         </zeroOrMore>
+         <optional>
+            <choice>
+               <ref name="e.objectXMLWrap"/>
+               <ref name="e.objectBinWrap"/>
+            </choice>
+         </optional>
+         <optional>
+            <ref name="m.dates"/>
+         </optional>
+         <optional>
+            <ref name="e.placeEntry"/>
+         </optional>
+         <optional>
+            <ref name="e.descriptiveNote"/>
+         </optional>
+      </define>
+      <define name="e.cpfRelation">
+         <element a:id="cpfRelation" name="cpfRelation">
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <optional>
+               <attribute a:id="cpfRelationType" name="cpfRelationType">
+                  <choice>
+                     <value>identity</value>
+                     <value>hierarchical</value>
+                     <value>hierarchical-parent</value>
+                     <value>hierarchical-child</value>
+                     <value>temporal</value>
+                     <value>temporal-earlier</value>
+                     <value>temporal-later</value>
+                     <value>family</value>
+                     <value>associative</value>
+                  </choice>
+               </attribute>
+            </optional>
+            <ref name="m.relationBody"/>
+         </element>
+      </define>
+      <define name="e.resourceRelation">
+         <element a:id="resourceRelation" name="resourceRelation">
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <optional>
+               <attribute a:id="resourceRelationType" name="resourceRelationType">
+                  <choice>
+                     <value>creatorOf</value>
+                     <value>subjectOf</value>
+                     <value>other</value>
+                  </choice>
+               </attribute>
+            </optional>
+            <ref name="m.relationBody"/>
+         </element>
+      </define>
+      <define name="e.functionRelation">
+         <element a:id="functionRelation" name="functionRelation">
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <optional>
+               <attribute a:id="functionRelationType" name="functionRelationType">
+                  <choice>
+                     <value>controls</value>
+                     <value>owns</value>
+                     <value>performs</value>
+                  </choice>
+               </attribute>
+            </optional>
+            <ref name="m.relationBody"/>
+         </element>
+      </define>
+   </div>
+   <div a:documentation="alternativeSet">
+      <define name="e.alternativeSet">
+         <element a:id="alternativeSet" name="alternativeSet">
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <optional>
+               <ref name="base"/>
+            </optional>
+            <oneOrMore>
+               <element a:id="setComponent" name="setComponent">
+                  <optional>
+                     <ref name="id"/>
+                  </optional>
+                  <optional>
+                     <ref name="lang"/>
+                  </optional>
+                  <optional>
+                     <ref name="a.lastDateTimeVerified"/>
+                  </optional>
+                  <!-- Here down overlaps with m.relationBody -->
+                  <optional>
+                     <ref name="simpleLink"/>
+                  </optional>
+                  <zeroOrMore>
+                     <element a:id="componentEntry" name="componentEntry">
+                        <optional>
+                           <ref name="id"/>
+                        </optional>
+                        <optional>
+                           <ref name="a.localType"/>
+                        </optional>
+                        <optional>
+                           <ref name="m.entryLanguageAttributes"/>
+                        </optional>
+                        <text/>
+                     </element>
+                  </zeroOrMore>
+                  <optional>
+                     <choice>
+                        <ref name="e.objectXMLWrap"/>
+                        <ref name="e.objectBinWrap"/>
+                     </choice>
+                  </optional>
+                  <optional>
+                     <ref name="e.descriptiveNote"/>
+                  </optional>
+               </element>
+            </oneOrMore>
+         </element>
+      </define>
+   </div>
+   <div a:documentation="Shared">
+      <define name="e.anyName">
+         <element a:id="e.anyName">
+            <anyName/>
+            <ref name="m.anything"/>
+         </element>
+      </define>
+      <define name="m.anything">
+         <zeroOrMore>
+            <attribute a:id="a.anyName">
+               <anyName/>
+            </attribute>
+         </zeroOrMore>
+         <zeroOrMore>
+            <choice>
+               <ref name="e.anyName"/>
+               <text/>
+            </choice>
+         </zeroOrMore>
+      </define>
+      <div a:documentation="Dates">
+         <define name="a.lastDateTimeVerified">
+            <attribute a:id="lastDateTimeVerified" name="lastDateTimeVerified">
+               <ref name="m.data.standardDateTime"/>
+            </attribute>
+         </define>
+         <define name="m.data.standardDateTime">
+            <choice>
+               <data type="date">
+                  <param name="maxInclusive">2099-12-31</param>
+               </data>
+               <data type="gYear">
+                  <param name="maxInclusive">2099</param>
+               </data>
+               <data type="gYearMonth">
+                  <param name="maxInclusive">2099-12</param>
+               </data>
+               <data type="dateTime">
+                  <param name="maxInclusive">2099-12-31T23:59:59</param>
+               </data>
+            </choice>
+         </define>
+         <define name="m.data.standardDate">
+            <choice>
+               <data type="date">
+                  <param name="maxInclusive">2099-12-31</param>
+               </data>
+               <data type="gYear">
+                  <param name="maxInclusive">2099</param>
+               </data>
+               <data type="gYearMonth">
+                  <param name="maxInclusive">2099-12</param>
+               </data>
+            </choice>
+         </define>
+         <define name="e.dateSingle">
+            <element a:id="date" name="date">
+               <a:documentation xml:lang="eng">The single date of an event in the history of, or a relationship with, the person, family, or corporate body being described in the EAC-CPF instance.</a:documentation>
+               <a:documentation xml:lang="fre">Date simple d'un évènement dans l'histoire de la personne, de la famille ou de la collectivité décrite dans l'instance EAC-CPF, ou date d'une relation concernant cette entité.</a:documentation>
+               <a:documentation xml:lang="eng">A generic element expressing the single date of an event in the history of, or a relationship with, the person, family, or corporate body being described in the EAC-CPF instance. If the event
+                  or relationship has inclusive dates use the &lt;dateRange&gt; element, while more complex dates (combining singles dates and date ranges) can be expressed in &lt;dateSet&gt;.The content of the element is intended to be a
+                  human-readable natural language date with a machine-readable date provided as the value of the @standardDate attribute, formulated according to ISO 8601. Other attributes include @notBefore and @notAfter for dates of
+                  uncertainty. The @localType attribute can be used to supply a more specific characterization of the date.Dates of existence for the entity being described in the EAC-CPF instance are encoded with the &lt;existDates&gt;
+                  element, while the dates of use of a particular name of an entity are encoded in &lt;useDates&gt;. The date and time of a maintenance event in the history of the EAC-CPF instance are given in the &lt;eventDateTime&gt;
+                  element.</a:documentation>
+               <a:documentation xml:lang="fre">Élément générique qui exprime la date simple d'un évènement dans l'histoire de la personne, la famille ou la collectivité décrite dans l'instance EAC-CPF, ou d'une relation concernant cette
+                  entité. Si l'évènement ou la relation correspond à un intervalle de dates, utiliser l'élément Intervalle de dates &lt;dateRange&gt;. Des dates plus complexes (combinant des dates simples et des intervalles de dates)
+                  pouvant être exprimées grâce à l'élément Ensemble de dates &lt;dateSet&gt;.Le contenu de cet élément est une date en langage naturel, lisible par l'œil humain ; une date exploitable informatiquement est fournie par la
+                  valeur de l'attribut @standardDate, formulée selon la norme ISO 8601. Une date incertaine peut être exprimée par les attributs @notBefore et @notAfter. L'attribut @localType peut être utilisé pour caractériser plus
+                  spécifiquement la date. Les dates d'existence de l'entité décrite dans l'instance EAC-CPF sont encodées dans l'élément Dates d'existence &lt;existDates&gt;, alors que les dates d'utilisation d'un nom particulier d'une
+                  entité sont encodées dans l'élément Dates d'utilisation &lt;useDates&gt;. Les date et heure d'un évènement de gestion dans l'histoire de l'instance EAC-CPF sont indiquées dans l'élément Date et heure de l’intervention
+                  &lt;eventDateTime&gt;.</a:documentation>
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <optional>
+                  <ref name="lang"/>
+               </optional>
+               <optional>
+                  <ref name="a.localType"/>
+               </optional>
+               <ref name="m.dateSingle"/>
+            </element>
+         </define>
+         <define name="m.dateSingle">
+            <optional>
+               <attribute a:id="standardDate" name="standardDate">
+                  <ref name="m.data.standardDate"/>
+               </attribute>
+            </optional>
+            <optional>
+               <attribute a:id="notBefore" name="notBefore">
+                  <ref name="m.data.standardDate"/>
+               </attribute>
+            </optional>
+            <optional>
+               <attribute a:id="notAfter" name="notAfter">
+                  <ref name="m.data.standardDate"/>
+               </attribute>
+            </optional>
+            <text/>
+         </define>
+         <define name="e.dateRange">
+            <element a:id="dateRange" name="dateRange">
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <optional>
+                  <ref name="lang"/>
+               </optional>
+               <optional>
+                  <ref name="a.localType"/>
+               </optional>
+               <optional>
+                  <element a:id="fromDate" name="fromDate">
+                     <optional>
+                        <ref name="id"/>
+                     </optional>
+                     <optional>
+                        <ref name="lang"/>
+                     </optional>
+                     <ref name="m.dateSingle"/>
+                  </element>
+               </optional>
+               <optional>
+                  <element a:id="toDate" name="toDate">
+                     <optional>
+                        <ref name="id"/>
+                     </optional>
+                     <optional>
+                        <ref name="lang"/>
+                     </optional>
+                     <ref name="m.dateSingle"/>
+                  </element>
+               </optional>
+            </element>
+         </define>
+         <define name="e.dateSet">
+            <element a:id="dateSet" name="dateSet">
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <optional>
+                  <ref name="lang"/>
+               </optional>
+               <optional>
+                  <ref name="a.localType"/>
+               </optional>
+               <choice>
+                  <ref name="e.dateSingle"/>
+                  <ref name="e.dateRange"/>
+               </choice>
+               <oneOrMore>
+                  <choice>
+                     <ref name="e.dateSingle"/>
+                     <ref name="e.dateRange"/>
+                  </choice>
+               </oneOrMore>
+            </element>
+         </define>
+         <define name="m.dates">
+            <choice>
+               <ref name="e.dateSingle"/>
+               <ref name="e.dateRange"/>
+               <ref name="e.dateSet"/>
+            </choice>
+         </define>
+      </div>
+      <div a:documentation="Language">
+         <define name="e.language">
+            <element a:id="language" name="language">
+               <a:documentation xml:lang="eng">The specification of a particular language used in the EAC-CPF instance or in the creative work of the entity being described.</a:documentation>
+               <a:documentation xml:lang="fre">La précision d’une langue spécifique utilisée dans l’instance EAC-CPF ou par l’entité décrite dans ses activités.</a:documentation>
+               <a:documentation xml:lang="eng">A required element within &lt;languageDeclaration&gt; that gives the main language in which the EAC-CPF instance is written.A required element within &lt;languageUsed&gt; that gives the
+                  language or languages used by the entity being described.The content of the @languageCode attribute must be given in the form of valid code from ISO 639-2b.</a:documentation>
+               <a:documentation xml:lang="fre">Élément obligatoire au sein de l’élément Déclaration de langue &lt;languageDeclaration&gt; qui donne la langue principale dans laquelle l’instance EAC-CPF est rédigée.Élément obligatoire au
+                  sein de l’élément Langue utilisée &lt;languageUsed&gt; qui donne la langue ou les langues utilisées par l’entité décrite.Le contenu de l’attribut @languageCodedoit être un code de la norme ISO 639-2b.</a:documentation>
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <optional>
+                  <ref name="lang"/>
+               </optional>
+               <attribute a:id="languageCode" name="languageCode">
+                  <data type="string">
+                     <param name="pattern">[a-z]{3}</param>
+                  </data>
+               </attribute>
+               <text/>
+            </element>
+         </define>
+         <define name="e.script">
+            <element a:id="script" name="script">
+               <a:documentation xml:lang="eng">The specification of a particular script used in the EAC-CPF instance or in the creative work of the entity being described.</a:documentation>
+               <a:documentation xml:lang="fre">Précision d’une écriture spécifique utilisée dans l’instance EAC-CPF ou par l’entité décrite dans l’exercice de ses activités.</a:documentation>
+               <a:documentation xml:lang="eng">A required element within &lt;languageDeclaration&gt; that gives the main script in which the EAC-CPF instance is written.A required element within &lt;languageUsed&gt; that gives the main
+                  script used by the entity being described in their creative or productive work.The content of the @scriptCode attribute must be given in the form of a valid code from ISO 15924.</a:documentation>
+               <a:documentation xml:lang="fre">Un élément obligatoire au sein de l’élément Déclaration de langue &lt;languageDeclaration&gt; qui donne l’écriture principale dans laquelle l’instance EAC-CPF est rédigée.Un élément obligatoire
+                  au sein de l’élément Langue utilisée &lt;languageUsed&gt; qui donne l’écriture principale utilisée par l’entité décrite dans l’exercice de ses activités.Le contenu de l’attribut @scriptCode doit être donné sous forme d’un
+                  code valide issu de la norme ISO 15924.</a:documentation>
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <optional>
+                  <ref name="lang"/>
+               </optional>
+               <ref name="a.scriptCode"/>
+               <text/>
+            </element>
+         </define>
+         <define name="a.scriptCode">
+            <attribute a:id="scriptCode" name="scriptCode">
+               <data type="string">
+                  <param name="pattern">[A-Z][a-z]{3}</param>
+               </data>
+            </attribute>
+         </define>
+         <define name="a.transliteration">
+            <attribute a:id="transliteration" name="transliteration">
+               <a:documentation xml:lang="eng">A value designating the transliteration scheme used in representing converting one script into another script.</a:documentation>
+               <a:documentation xml:lang="fre">Valeur indiquant le système de translittération utilisé pour convertir une écriture dans une autre.</a:documentation>
+               <a:documentation xml:lang="eng">The conventions or rules that prescribe a method for converting one script into another script.</a:documentation>
+               <a:documentation xml:lang="fre">Attribut permettant d’indiquer les normes ou conventions qui prescrivent un système de conversion d’une écriture dans une autre.</a:documentation>
+               <data type="NMTOKEN"/>
+            </attribute>
+         </define>
+         <define name="m.entryLanguageAttributes">
+            <optional>
+               <ref name="a.scriptCode"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <optional>
+               <ref name="a.transliteration"/>
+            </optional>
+         </define>
+      </div>
+      <define name="m.data.standardRepository">
+         <data type="token">
+            <a:documentation>This pattern represents the character pattern requirements of ISIL (ISO 15511). Values that conform to the pattern are not, strictly speaking, conformant to ISIL, as all repository codes must be registered with
+               a national authority and the national authority must be registered wth the official ISIL registering authority, the Royal Library of Belgium (http://biblstandard.dk/isil/).</a:documentation>
+            <param name="pattern">(([A-Z]{2})|([a-zA-Z]{1})|([a-zA-Z]{3,4}))(-[a-zA-Z0-9:/\-]{1,11})</param>
+         </data>
+      </define>
+      <define name="e.term">
+         <element a:id="term" name="term">
+            <a:documentation xml:lang="eng">A generic element used to encode a descriptive term in accordance with local descriptive rules.</a:documentation>
+            <a:documentation xml:lang="fre">Un élément générique utilisé pour encoder un terme de description conformément à des règles locales.</a:documentation>
+            <a:documentation xml:lang="eng">A generic element used to encode a descriptive term in accordance with local descriptive rules. The local authority – thesaurus or local controlled vocabulary – should be declared in the
+               &lt;localTypeDeclaration&gt; element within the &lt;control&gt; section.</a:documentation>
+            <a:documentation xml:lang="fre">Un élément générique utilisé pour encoder un terme de description conformément à des règles locales. Tout référentiel local utilisé – qu’il s’agisse d’un thésaurus ou d’un vocabulaire contrôlé
+               local – doit être déclaré dans l’élément Déclaration de type local &lt;localTypeDeclaration&gt; au sein de l’élément Contrôle &lt;control&gt;.</a:documentation>
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="m.entryLanguageAttributes"/>
+            </optional>
+            <optional>
+               <ref name="a.lastDateTimeVerified"/>
+            </optional>
+            <optional>
+               <ref name="a.vocabularySource"/>
+            </optional>
+            <text/>
+         </element>
+      </define>
+      <define name="e.descriptiveNote">
+         <element a:id="descriptiveNote" name="descriptiveNote">
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <oneOrMore>
+               <ref name="e.p"/>
+            </oneOrMore>
+         </element>
+      </define>
+      <define name="e.citation">
+         <element a:id="citation" name="citation">
+            <a:documentation xml:lang="eng">A linking element that cites an external resource.</a:documentation>
+            <a:documentation xml:lang="fre">Élément de lien qui cite une ressource externe. </a:documentation>
+            <a:documentation xml:lang="eng">&lt;citation&gt; is a generic linking element that cites an external resource in machine and / or human readable form, which is available within a number of descriptive elements. The purpose of
+               the &lt;citation&gt; element is to point to a resource that provides descriptive data which is not otherwise given in the EAC-CPF instance, such as an original document that sets out the mandate for a corporate body; it
+               should not be confused with the &lt;source&gt; element which is used to declare a particular resource used in the composition of the EAC-CPF instance. In most contexts it is optional, but a &lt;citation&gt; element must be
+               given within &lt;conventionDeclaration&gt; and &lt;localTypeDeclaration&gt; elements in &lt;control&gt;. Provide the formal title or name of the resource, using the &lt;span&gt; element to indicate any formatting (such as
+               italic or bold etc) thought necessary. The user experience can be controlled by use of the available XML linking Language (Xlink) attributes for which consult the specification at
+               http://www.w3.org/TR/xlink/.</a:documentation>
+            <a:documentation xml:lang="fre">Citation &lt;citation&gt; est un élément générique de lien qui cite une ressource externe d'une manière qui puisse être interprétée par une machine et/ou lue par un humain, et qui est disponible
+               dans un certain nombre d'éléments descriptifs. Le but de l'élément &lt;citation&gt; est de pointer vers une ressource qui fournit des données descriptives qui ne sont pas par ailleurs présentes dans l'instance EAC-CPF, par
+               exemple un document original qui donne les missions ou le mandat d'une collectivité ; à ne pas confondre avec l'élément Source &lt;source&gt; qui est utilisé pour déclarer une ressource particulière utilisée dans la rédaction
+               de l'instance EAC-CPF. Dans la plupart des contextes, &lt;citation&gt; est facultatif, mais un élément &lt;citation&gt; doit être renseigné au sein des éléments Déclaration de règle ou de convention
+               &lt;conventionDeclaration&gt; et Déclaration d'une convention locale &lt;localTypeDeclaration&gt; présents dans l'élément Contrôle &lt;control&gt;. On peut y fournir le titre ou le nom officiel de la ressource, en utilisant
+               l'élément Segment de texte &lt;span&gt; pour indiquer tout format (par exemple italique, gras, etc.) jugé nécessaire. Les actions de l'utilisateur peuvent être contrôlées en utilisant les attributs du langage de liens étendus
+               XML XLink (pour ce dernier, consulter les spécifications à l’adresse http://www.w3.org/TR/xlink/). </a:documentation>
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <optional>
+               <ref name="simpleLink"/>
+            </optional>
+            <optional>
+               <ref name="a.lastDateTimeVerified"/>
+            </optional>
+            <ref name="m.mixedContent"/>
+         </element>
+      </define>
+      <define name="m.id">
+         <optional>
+            <ref name="a.localType"/>
+         </optional>
+         <text/>
+      </define>
+      <define name="e.p">
+         <element a:id="p" name="p">
+            <a:documentation xml:lang="eng">A generic element in the description area which marks one or more sentences that form a logical prose passage.</a:documentation>
+            <a:documentation xml:lang="fre">Élément générique contenu au sein d’autres éléments de Description &lt;description&gt;, qui délimite une ou plusieurs phrases formant dans le texte des ensembles logiques.</a:documentation>
+            <a:documentation xml:lang="eng">A paragraph may be a subdivision of a larger composition, or it may exist alone. It is usually typographically distinct. A line space is often left blank before it; the text begins on a new line;
+               and the first letter of the first word is often indented, enlarged, or both.The &lt;p&gt; element is an important textual feature, which must be used as part of any general description within a &lt;descriptiveNote&gt; element
+               and may be used inside many of the descriptive elements within the description area. While it generally contains discursive text, it may also contain a &lt;span&gt; element to further stress or style specific character
+               strings by particular formatting (such as italic or bold, etc.).</a:documentation>
+            <a:documentation xml:lang="fre">Un paragraphe peut être une subdivision d’un ensemble plus large, comme il peut exister tout seul. Il est habituellement distingué typographiquement. On va souvent à la ligne avant de commencer un
+               nouveau paragraphe ; le texte commence sur une nouvelle ligne et la première lettre du premier mot est souvent en retrait et/ou dans une police plus grande. L’élément &lt;p&gt; est une caractéristique textuelle importante, à
+               utiliser dans toute description générale au sein d’un élément Note descriptive &lt;descriptiveNote&gt;. Il peut aussi être utilisé dans de nombreux éléments descriptifs contenus dans l’élément &lt;description&gt;. S’il
+               contient généralement un texte rédigé, il peut aussi héberger un élément Segment de texte &lt;span&gt; pour mettre en valeur des chaînes de caractères spécifiques grâce à une mise en forme particulière (comme l’italique, le
+               gras, etc.)</a:documentation>
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <ref name="m.mixedContent"/>
+         </element>
+      </define>
+      <define name="m.mixedContent">
+         <zeroOrMore>
+            <choice>
+               <text/>
+               <ref name="e.span"/>
+            </choice>
+         </zeroOrMore>
+      </define>
+      <define name="e.chronList">
+         <element a:id="chronList" name="chronList">
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <optional>
+               <ref name="a.localType"/>
+            </optional>
+            <oneOrMore>
+               <element a:id="chronItem" name="chronItem">
+                  <optional>
+                     <ref name="id"/>
+                  </optional>
+                  <optional>
+                     <ref name="lang"/>
+                  </optional>
+                  <optional>
+                     <ref name="a.localType"/>
+                  </optional>
+                  <choice>
+                     <ref name="e.dateSingle"/>
+                     <ref name="e.dateRange"/>
+                  </choice>
+                  <optional>
+                     <ref name="e.placeEntry"/>
+                  </optional>
+                  <element a:id="event" name="event">
+                     <a:documentation xml:lang="eng">An element used to encode an event associated with a date and, optionally, a place within a structured chronology.</a:documentation>
+                     <a:documentation xml:lang="fre">Élément utilisé pour encoder un évènement associé à une date et, éventuellement, à un lieu au sein d'une chronologie structurée.</a:documentation>
+                     <a:documentation xml:lang="eng">The element contains discursive text identifying the event described by the &lt;chronItem&gt;. Every &lt;event&gt; must have an associated &lt;date&gt; element, and it may also have an
+                        optional &lt;placeEntry&gt; element, all wrapped within a &lt;chronItem&gt; describing the event in a chronology.</a:documentation>
+                     <a:documentation xml:lang="fre">L'élément Évènement &lt;event&gt; contient du texte discursif identifiant l'évènement décrit par l'élément Élément de liste chronologique &lt;chronItem&gt;. Chaque &lt;event&gt; doit être
+                        associé à un élément Date &lt;date&gt;. ll peut également être associé à un élément facultatif Forme du nom de lieu &lt;placeEntry&gt;. Tous ces éléments sont englobés dans un élément Élément de liste chronologique
+                        &lt;chronItem&gt;, qui décrit l'évènement au sein d'une chronologie.</a:documentation>
+                     <optional>
+                        <ref name="id"/>
+                     </optional>
+                     <optional>
+                        <ref name="lang"/>
+                     </optional>
+                     <optional>
+                        <ref name="a.localType"/>
+                     </optional>
+                     <text/>
+                  </element>
+               </element>
+            </oneOrMore>
+         </element>
+      </define>
+      <define name="e.list">
+         <element a:id="list" name="list">
+            <a:documentation xml:lang="eng">A wrapper element to encode a simple list consisting of two or more &lt;item&gt; elements.</a:documentation>
+            <a:documentation xml:lang="fre">Élément englobant qui sert à encoder une liste simple, comprenant plusieurs éléments Item &lt;item&gt;.</a:documentation>
+            <a:documentation xml:lang="eng">The &lt;list&gt; element is used for general lists that can be embedded with a large number of descriptive elements. Lists are comprised of one or more &lt;item&gt; elements. Do not confuse with
+               &lt;chronList&gt;, which encodes a structured chronology.</a:documentation>
+            <a:documentation xml:lang="fre">L'élément Liste &lt;list&gt; est utilisé pour encoder les listes générales qui peuvent être contenues dans un grand nombre d'éléments descriptifs. Les listes comprennent plusieurs éléments
+               &lt;item&gt;. Il ne faut pas confondre cet élément avec l'élément Liste chronologique &lt;chronList&gt; qui sert à encoder une structure chronologique.</a:documentation>
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <optional>
+               <ref name="a.localType"/>
+            </optional>
+            <oneOrMore>
+               <ref name="e.item"/>
+            </oneOrMore>
+         </element>
+      </define>
+      <define name="e.item">
+         <element a:id="item" name="item">
+            <a:documentation xml:lang="eng">A formatting element that encodes the individual entries comprising lists.</a:documentation>
+            <a:documentation xml:lang="fre">Élément de formatage qui sert à encoder les entrées individuelles de listes.</a:documentation>
+            <a:documentation xml:lang="eng">The &lt;item&gt; element is used for general lists within descriptive elements and within levels in an outline. Do not confuse with &lt;chronItem&gt;, which encodes entries within a structured
+               chronology, &lt;chronList&gt;.</a:documentation>
+            <a:documentation xml:lang="fre">L'élément Item &lt;item&gt; est utilisé pour les listes générales au sein d'éléments descriptifs et au sein des niveaux dans une vue d’ensemble effectuée grâce à l'élément Vue d’ensemble
+               &lt;outline&gt;. Ne pas confondre avec Élément de liste chronologique &lt;chronItem&gt;, qui sert à encoder les entrées d'une Liste chronologique &lt;chronList&gt;.</a:documentation>
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <optional>
+               <ref name="a.localType"/>
+            </optional>
+            <ref name="m.mixedContent"/>
+         </element>
+      </define>
+      <define name="e.outline">
+         <element a:id="outline" name="outline">
+            <a:documentation xml:lang="eng">An element used within the description area to encode information in an outline format.</a:documentation>
+            <a:documentation xml:lang="fre">Élément utilisé au sein d’autres éléments contenus dans l’élément Description &lt;description&gt;, pour une présentation des informations sous forme de vue d’ensemble.</a:documentation>
+            <a:documentation xml:lang="eng">&lt;outline&gt; contains one or more &lt;level&gt; elements, which contain either &lt;item&gt; elements or further &lt;level&gt; elements in a hierarchical fashion.</a:documentation>
+            <a:documentation xml:lang="fre">L’élément &lt;outline&gt; contient un ou plusieurs élément(s) Niveau &lt;level&gt; qui, à leur tour, contiennent soit des éléments Item &lt;item&gt; soit d’autres éléments &lt;level&gt; de manière
+               à créer une hiérarchie.</a:documentation>
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <optional>
+               <ref name="a.localType"/>
+            </optional>
+            <oneOrMore>
+               <ref name="e.level"/>
+            </oneOrMore>
+         </element>
+      </define>
+      <define name="e.level">
+         <element a:id="level" name="level">
+            <a:documentation xml:lang="eng">A required element for &lt;outline&gt; which delineates the outline format.</a:documentation>
+            <a:documentation xml:lang="fre">Élément obligatoire pour l’élément Vue d’ensemble &lt;outline&gt; permettant de structurer la vue d’ensemble.</a:documentation>
+            <a:documentation xml:lang="eng">Within an &lt;outline&gt;, multiple &lt;level&gt; elements are used to indicate the hierarchical levels of information that comprise the outline. When more than one hierarchical level exists,
+               successive &lt;level&gt; exists, successive &lt;level&gt; elements are nested recursively to identify the layers of content. Each &lt;level&gt;, in turn, contains one ore more &lt;item&gt; elements that convey the information
+               content of the outline.</a:documentation>
+            <a:documentation xml:lang="fre">Au sein de l’élément Vue d’ensemble &lt;outline&gt;, on utilise plusieurs éléments Niveau &lt;level&gt; pour indiquer les niveaux hiérarchiques d’information constitutifs d’une vue d’ensemble.
+               Quand il y a plus d’un niveau hiérarchique, plusieurs éléments Niveau &lt;level&gt; successifs sont emboîtés de manière récursive pour identifier les strates de contenu. Chaque Niveau &lt;level&gt; comprend à son tour un ou
+               plusieurs élément(s) Item &lt;item&gt; contenant les éléments d’information de la vue d’ensemble.</a:documentation>
+            <optional>
+               <ref name="id"/>
+            </optional>
+            <optional>
+               <ref name="lang"/>
+            </optional>
+            <optional>
+               <ref name="a.localType"/>
+            </optional>
+            <ref name="e.item"/>
+            <zeroOrMore>
+               <ref name="e.level"/>
+            </zeroOrMore>
+         </element>
+      </define>
+      <define name="e.span">
+         <optional>
+            <element a:id="span" name="span">
+               <a:documentation xml:lang="eng">Specifies the beginning and the end of a span of text.</a:documentation>
+               <a:documentation xml:lang="fre">Indique le début et la fin d'un segment de texte.</a:documentation>
+               <a:documentation xml:lang="eng">A formatting element for marking arbitrary words or phrases that are stressed or emphasized for linguistic effect or identifying some qualities of the words or phrases. Use the @style attribute
+                  to affect an arbitrary stylistic difference. Use the @localType attribute to assign other characteristics.</a:documentation>
+               <a:documentation xml:lang="fre">Élément de format qui sert à encoder les mots ou les phrases que l'on souhaite mettre en valeur, soit à des fins de style, soit pour souligner certaines propriétés spécifiques de ces mots ou
+                  phrases. On utilisera l'attribut @style pour affecter au segment de texte une valeur stylistique particulière, et l'attribut @localType s’il s’agit plutôt de lui conférer d’autres caractéristiques.</a:documentation>
+               <optional>
+                  <ref name="id"/>
+               </optional>
+               <optional>
+                  <ref name="lang"/>
+               </optional>
+               <optional>
+                  <ref name="a.localType"/>
+               </optional>
+               <optional>
+                  <ref name="a.style"/>
+               </optional>
+               <text/>
+            </element>
+         </optional>
+      </define>
+      <define name="a.localType">
+         <attribute a:id="localType" name="localType">
+            <data type="anyURI"/>
+         </attribute>
+      </define>
+      <define name="a.vocabularySource">
+         <attribute a:id="vocabularySource" name="vocabularySource">
+            <data type="anyURI"/>
+         </attribute>
+      </define>
+      <define name="a.style">
+         <attribute a:id="style" name="style">
+            <a:documentation xml:lang="eng">Used to specify a rendering style for string. It is recommended that the value conforms to W3C CSS.</a:documentation>
+            <a:documentation xml:lang="fre">Utilisé pour préciser la mise en forme souhaitée pour une chaîne de caractères. Il est recommandé de fournir des valeurs conformes au standard CSS du W3C.</a:documentation>
+            <a:documentation xml:lang="eng">The @style may occur on &lt;span&gt;. In a limited number of contexts that accommodate discursive description, &lt;span&gt; with @style may be used to identify an arbitrary string that is intended
+               to be rendered in a specific style. It is highly recommended that the value of @style be expressed as a W3C CSS style to facilitate interoperability.</a:documentation>
+            <a:documentation xml:lang="fre">L'attribut @style est un attribut de l'élément Segment de texte &lt;span&gt;. Dans un nombre limité de contextes qui contiennent une description textuelle, l'élément &lt;span&gt; et son attribut
+               @style peuvent être utilisés pour identifier une chaîne de caractères particulière que l'on souhaite rendre dans un style spécifique. Il est fortement recommandé que la valeur de @style soit exprimée conformément au standard
+               CSS du W3C afin de faciliter l'interopérabilité.</a:documentation>
+            <text/>
+         </attribute>
+      </define>
+      <define name="m.geographicalCoordinates">
+         <attribute a:id="longitude" name="longitude">
+            <a:documentation xml:lang="eng">The longitude of the place.</a:documentation>
+            <a:documentation xml:lang="fre">La longitude du lieu.</a:documentation>
+            <a:documentation xml:lang="eng">The @longitude may occur on &lt;place&gt;. The value of the attribute is the geographic longitude of the place named. @longitude should be used in conjunction with @latitude and
+               @altitude.</a:documentation>
+            <a:documentation xml:lang="fre">L’attribut @longitude est un attribut de l’élément Lieu &lt;place&gt;. La valeur de cet attribut correspond à la longitude du lieu. L’attribut @longitude doit être utilisé conjointement avec les
+               attributs @latitude et @altitude.</a:documentation>
+            <data type="NMTOKEN"/>
+         </attribute>
+         <attribute a:id="latitude" name="latitude">
+            <a:documentation xml:lang="eng">The geographic latitude of the place.</a:documentation>
+            <a:documentation xml:lang="fre">La latitude du lieu.</a:documentation>
+            <a:documentation xml:lang="eng">The @latitude may occur on &lt;place&gt;. The value of the attribute is the geographic latitude of the place named. @latitude should be used in conjunction with @longitude and
+               @altitude.</a:documentation>
+            <a:documentation xml:lang="fre">L’attribut @latitude est un attribut de l’élément Lieu &lt;place&gt;. La valeur de cet attribut correspond à la latitude du lieu. L’attribut @latitude doit être utilisé conjointement avec les
+               attributs @longitude et @altitude.</a:documentation>
+            <data type="NMTOKEN"/>
+         </attribute>
+         <optional>
+            <attribute a:id="altitude" name="altitude">
+               <a:documentation xml:lang="eng">The altitude or elevation of the geographic place.</a:documentation>
+               <a:documentation xml:lang="fre">L’altitude ou l’élévation du lieu géographique.</a:documentation>
+               <a:documentation xml:lang="eng">The @altitude may occur on &lt;place&gt;. The value of the attribute is the altitude or elevation of the geographic place named. @altitude should be used in conjunction with @longitude and
+                  @latitude.</a:documentation>
+               <a:documentation xml:lang="fre">L’attribut @altitude est un attribut de l’élément Lieu &lt;place&gt;. La valeur de cet attribut correspond à l’altitude ou l’élévation du lieu géographique désigné. L’attribut @altitude doit
+                  être utilisé conjointement avec les attributs @longitude et @latitude.</a:documentation>
+               <data type="NMTOKEN"/>
+            </attribute>
+         </optional>
+      </define>
+      <div a:documentation="XML Special Attributes">
+         <define name="lang" ns="http://www.w3.org/XML/1998/namespace">
+            <attribute a:id="xmlLang" name="xml:lang">
+               <a:documentation xml:lang="eng">Three-letter ISO 639-2 language code.</a:documentation>
+               <a:documentation xml:lang="fre">Code de langue à trois lettres ISO 639-2.</a:documentation>
+               <a:documentation xml:lang="eng">The @xml:lang may occur on any element intended to contain natural language content whenever information about the language of the content of this element and its children are needed. @xml:lang
+                  should be used when the language of the element differs from the Language Code declared in the @languageCode attribute on the element &lt;language&gt; in the control section. The values in the list are taken from ISO 639-2
+                  Codes for the Representation of Names of Languages. The list can be downloaded from the website of the Library of Congress which is the registration agency of the standard
+                  (http://www.loc.gov/standards/iso639-2/langhome.html).</a:documentation>
+               <a:documentation xml:lang="fre">L’attribut @xml:lang s’applique à tout élément dont le contenu est rédigé en langage naturel, chaque fois qu’il est nécessaire d’indiquer la langue du contenu de cet élément et de ses enfants.
+                  On doit utiliser l’attribut @xml:lang quand la langue de l’élément diffère de celle déclarée dans l’attribut @languageCode de l’élément Langue &lt;language&gt; qui fait partie du contrôle de la description. Les valeurs de
+                  la liste sont issues de la norme ISO 639-2 Codes pour la représentation des noms de langue. On peut télécharger cette liste à partir du site de la Bibliothèque du Congrès qui est l’agence d’enregistrement de la norme
+                  (http://www.loc.gov/standards/iso639-2/langhome.html).</a:documentation>
+               <choice>
+                  <data type="language"/>
+                  <value/>
+               </choice>
+            </attribute>
+         </define>
+         <define name="base" ns="http://www.w3.org/XML/1998/namespace">
+            <attribute a:id="xmlBase" name="xml:base">
+               <a:documentation xml:lang="eng">Used to specify a base URI other than the base URI of the EAC-CPF instance.</a:documentation>
+               <a:documentation xml:lang="fre">Cet attribut sert à indiquer un URI de base distinct de l’URI de base de l’instance EAC-CPF.</a:documentation>
+               <a:documentation xml:lang="eng">@xml:base is used to specify the base URI other than the base URI of the EAC-CPF instance, for the purpose of resolving any relative URIs used with elements that contain one or more descendants
+                  that use an attribute of type anyURI. @xml:base makes it possible to declare an absolute base URI to facilitate the use of relative URIs on the descendants.</a:documentation>
+               <a:documentation xml:lang="fre">L’attribut @xml:base sert à indiquer un URI de base distinct de l’URI de base de l’instance EAC-CPF, pour résoudre les URIs relatifs qui figurent dans les attributs de type anyURI d’un ou
+                  plusieurs élément(s) descendant(s) de l’élément courant. L’attribut @xml:base permet de déclarer un URI de base absolu pour faciliter l’utilisation d’URIs relatifs dans les éléments descendants de l’élément
+                  courant.</a:documentation>
+               <data type="anyURI"/>
+            </attribute>
+         </define>
+         <define name="id" ns="http://www.w3.org/XML/1998/namespace">
+            <attribute a:id="xmlID" name="xml:id">
+               <a:documentation xml:lang="eng">A unique identifier available on most elements that can be used to name specific elements in the EAC-CPF instance.</a:documentation>
+               <a:documentation xml:lang="fre">Attribut, disponible pour la plupart des éléments, à utiliser lorsque l’on souhaite identifier de façon univoque un élément particulier dans l’instance EAC-CPF.</a:documentation>
+               <a:documentation xml:lang="eng">An identifier used to name the element so that it can be referred to, or referenced from, somewhere else. Each @xml:id within a document must have a unique value. The @xml:id attribute
+                  regularizes the naming of the element and thus facilitates building links between it and other resources. For example, the @xml:id may be used to uniquely identify two or more &lt;cpfDescription&gt; within
+                  &lt;multipleIdentities&gt;. Uniquely identifying or distinguishing two or more &lt;cpfDescription&gt; may be essential or useful in maintenance environments when relating resources, functions, or corporate bodies, persons,
+                  or families to one among two or more identities represented in one EAC-CPF instance.</a:documentation>
+               <a:documentation xml:lang="fre">L’attribut @xml:id a pour valeur un identifiant permettant de renvoyer à l’élément qu’il qualifie ou de citer cet élément. Chaque attribut @xml:id doit avoir une valeur unique au sein d’un
+                  document XML. L’attribut @xml:id donne la forme canonique pour identifier l’élément et facilite ainsi la construction de liens entre cet élément et d’autres ressources. Par exemple, on peut utiliser l’attribut @xml:id pour
+                  identifier de manière unique plusieurs éléments Description de collectivité, de personne ou de famille &lt;cpfDescription&gt; au sein d’un élément Identités multiples &lt;multipleIdentities&gt;. Il peut être nécessaire ou
+                  utile, dans des environnements de gestion, d’identifier de manière unique ou de distinguer plusieurs éléments &lt;cpfDescription&gt; quand on relie des ressources, des fonctions, ou des collectivités, personnes ou
+                  familles, à une identité parmi celles représentées dans une instance EAC-CPF.</a:documentation>
+               <data type="NCName"
+                  ><!-- Because of restrictions in Relax NG, the expression of this attribute is NCName. 
+							This is not strictly conformant to the xml:id specification, though necessary in order for
+							to validate. The XML Schema version of this attribute should be defined as ID --></data>
+            </attribute>
+         </define>
+      </div>
+      <div a:documentation="XLINK">
+         <define name="simpleLink">
+            <attribute a:defaultValue="simple" a:id="xlinkType" name="xlink:type">
+               <a:documentation xml:lang="eng">A fixed value that identifies an XLINK compliant element of a particular type.</a:documentation>
+               <a:documentation xml:lang="eng">A fixed value that identifies an XLINK compliant element of a particular type. Only one XLINK type is used in EAC-CPF, "simple." While the attribute is optional in instances validated against
+                  the W3C Schema version of EAC-CPF, the Relax NG version of EAC-CPF requires it. To support exchange of EAC-CPF instances, it is recommended that the @xlink:type be present in the instance whenever any of the other XLINK
+                  attributes are used.</a:documentation>
+               <value>simple</value>
+            </attribute>
+            <optional>
+               <ref name="href"/>
+            </optional>
+            <optional>
+               <ref name="role"/>
+            </optional>
+            <optional>
+               <ref name="arcrole"/>
+            </optional>
+            <optional>
+               <ref name="title"/>
+            </optional>
+            <optional>
+               <ref name="show"/>
+            </optional>
+            <optional>
+               <ref name="actuate"/>
+            </optional>
+         </define>
+         <define name="href">
+            <attribute a:id="xlinkHref" name="xlink:href">
+               <a:documentation xml:lang="eng">Contains a URI, possibly relative, pointing to the related resource</a:documentation>
+               <a:documentation xml:lang="eng">The address for a remote resource. The @xlink:href takes the form of a Uniform Resource Identifier (URI). While it is permissible to use a relative URI, and an absolute URI is
+                  recommended.</a:documentation>
+               <data type="anyURI"/>
+            </attribute>
+         </define>
+         <define name="role">
+            <attribute a:id="xlinkRole" name="xlink:role">
+               <a:documentation xml:lang="eng">Identifies the type or nature of the remote resource with an absolute URI.</a:documentation>
+               <a:documentation xml:lang="eng">Identifies the type or nature of the remote resource with an absolute URI. </a:documentation>
+               <data type="anyURI"/>
+            </attribute>
+         </define>
+         <define name="arcrole">
+            <attribute a:id="xlinkArcrole" name="xlink:arcrole">
+               <a:documentation xml:lang="eng">URI defining the purpose of the link.</a:documentation>
+               <a:documentation xml:lang="eng">An absolute URI that describes the nature of the relation between the entity being described in the EAC-CPF instance and a remote resource (&lt;cpfRelation&gt;, &lt;resourceRelation&gt;, or
+                  &lt;functionRelation&gt;) or the nature of the relation between the EAC-CPF instance description (or component of description) and the remote resource (&lt;citation&gt;, &lt;setComponent&gt;, and&lt;source&gt;). The value
+                  of the attribute should indicate the direction of the relation. It is recommended that the direction of the relation be from local resource to remote resource.</a:documentation>
+               <data type="anyURI"/>
+            </attribute>
+         </define>
+         <define name="title">
+            <attribute a:id="xlinkTitle" name="xlink:title">
+               <a:documentation xml:lang="eng">Information that may be used as a viewable caption for the remote resource.</a:documentation>
+               <a:documentation xml:lang="eng">Information that serves as a viewable caption that indicates the name or type of the linked remote source.</a:documentation>
+            </attribute>
+         </define>
+         <define name="show">
+            <attribute a:id="xlinkShow" name="xlink:show">
+               <a:documentation xml:lang="eng">Used to signal intended behavior with respect to where the remote resource is to appear when the link is resolved.</a:documentation>
+               <a:documentation xml:lang="eng">The @xlink:show should be used with the @xlink:actuate to indicate intended behavior. The @xlink:show is used to signal intended behavior with respect to where the remote resource is to appear
+                  when the link is resolved. The values indicate whether the resource is to appear embedded at the point of the link ("embed"), replace the resource in which it appears ("replace"), or in a new window ("new"). "None" or
+                  "other" are also valid values.</a:documentation>
+               <choice>
+                  <value>new</value>
+                  <value>replace</value>
+                  <value>embed</value>
+                  <value>other</value>
+                  <value>none</value>
+               </choice>
+            </attribute>
+         </define>
+         <define name="actuate">
+            <attribute a:id="xlinkActuate" name="xlink:actuate">
+               <a:documentation xml:lang="eng">Used to signal intended behavior with respect to whether the remote resource link is resolved when the containing resource is rendered, or when the user requests the resource.</a:documentation>
+               <a:documentation xml:lang="eng">The @xlink:actuate should be used with the @xlink:show to indicate intended behavior. The @xlink:actuate is used to signal intended behavior with respect to when the remote resource is to
+                  appear. The values indicate whether the resource is to appear automatically when the containing resource is rendered ("onLoad"), or only after the user requests the resource ("onRequest"). "None" or "other" are also valid
+                  values.</a:documentation>
+               <choice>
+                  <value>onLoad</value>
+                  <value>onRequest</value>
+                  <value>other</value>
+                  <value>none</value>
+               </choice>
+            </attribute>
+         </define>
+      </div>
+   </div>
+</grammar>
